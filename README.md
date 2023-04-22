@@ -6,8 +6,8 @@ To use git first time
 2. create a folder in this pc
 3. right click and open git bash terminal
 4. commands 
-5 git clone -b policemitra_0.1 https://github.com/AnirbanSikdar2020/PoliceMitra.git
-6 git pull
+5. git clone -b policemitra_0.1 https://github.com/AnirbanSikdar2020/PoliceMitra.git 
+6. git pull
 
 You are good to go
 
