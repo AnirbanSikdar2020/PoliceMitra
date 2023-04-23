@@ -31,6 +31,7 @@ public class login extends AppCompatActivity {
         signup = findViewById(R.id.signup);
         password = findViewById(R.id.pwd);
         eye = findViewById(R.id.pwdEye);
+        password.setTransformationMethod(new PasswordTransformationMethod());
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
