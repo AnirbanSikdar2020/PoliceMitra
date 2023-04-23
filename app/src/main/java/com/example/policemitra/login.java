@@ -3,13 +3,18 @@ package com.example.policemitra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class login extends AppCompatActivity {
 
@@ -17,7 +22,6 @@ public class login extends AppCompatActivity {
     EditText password;
     ImageButton eye;
     Boolean show_pwd = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class login extends AppCompatActivity {
         signup = findViewById(R.id.signup);
         password = findViewById(R.id.pwd);
         eye = findViewById(R.id.pwdEye);
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,23 +42,27 @@ public class login extends AppCompatActivity {
 
         eye.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
                 if(password.getText().toString().isEmpty()){
                     password.setError("Please Enter Password");
                 }
                 else
                 {
                     if(show_pwd==true){
-                        password.setTransformationMethod(null);
+                        password.setTransformationMethod(new PasswordTransformationMethod());
                         show_pwd = false;
                     }
                     else
                     {
-                        password.setTransformationMethod(new PasswordTransformationMethod());
+                        password.setTransformationMethod(null);
                         show_pwd = true;
                     }
                 }
             }
         });
+    }
+    public void showToast(String val){
+        Toast.makeText(login.this,val, Toast.LENGTH_SHORT).show();
     }
 }

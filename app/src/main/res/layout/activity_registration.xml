@@ -107,16 +107,44 @@
             android:inputType="number"
             android:textSize="19sp" />
 
-        <EditText
-            android:id="@+id/dob"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/textbox"
-            android:hint="DOB"
-            android:drawableEnd="@drawable/baseline_calendar_month_24"
-            android:textSize="19sp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="-2dp">
+            <EditText
+                android:id="@+id/dob"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textbox"
+                android:hint="Date of Birth"
+                android:singleLine="true"
+                android:textSize="19sp"
+                android:paddingRight="60dp"
+                android:layout_marginTop="17dp"
+
+                />
+            <ImageButton
+                android:id="@+id/calendar"
+                android:layout_marginLeft="-60dp"
+                android:layout_marginTop="10dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/baseline_calendar_month_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+<!--        <EditText-->
+<!--            android:id="@+id/dob"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="18dp"-->
+<!--            android:background="@drawable/textbox"-->
+<!--            android:hint="DOB"-->
+<!--            android:drawableEnd="@drawable/baseline_calendar_month_24"-->
+<!--            android:textSize="19sp" />-->
 
         <EditText
             android:id="@+id/pwd"
