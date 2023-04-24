@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".appbar"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="100"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/base_color">
+        <ImageButton
+            android:id="@+id/drawer"
+            android:layout_gravity="center"
+            android:layout_marginLeft="7dp"
+            android:layout_width="0dp"
+            android:layout_weight="14"
+            android:layout_height="30dp"
+            android:background="@drawable/menu_icon"/>
+        <TextView
+            android:layout_weight="90"
+            android:layout_gravity="center"
+            android:layout_marginLeft="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Policeमित्र "
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            />
+        <ImageButton
+            android:id="@+id/sos"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="7dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/sos"/>
+    </LinearLayout>
+
+</LinearLayout>
