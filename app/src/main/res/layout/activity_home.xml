@@ -3,22 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home"
-    android:orientation="vertical">
-    <include
+    tools:context=".home">
+
+    <ViewFlipper
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/activity_image_slider"
+        android:layout_height="200dp"
+        android:id="@+id/slider"
         />
-    <Button
-        android:id="@+id/back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="#5B279700"
-        android:padding="6dp"
-        android:text="Back"
-        android:textAllCaps="false"
-        android:textSize="17sp" />
 </LinearLayout>
