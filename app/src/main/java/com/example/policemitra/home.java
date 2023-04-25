@@ -1,41 +1,85 @@
 package com.example.policemitra;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
+//import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.text.Layout;
+import android.util.Log;
+//import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+//import android.view.View;
+//import android.view.ViewGroup;
+//import android.widget.Button;
+//import android.widget.ImageButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 import android.widget.ViewFlipper;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class home extends AppCompatActivity {
     ViewFlipper slider;
-    ImageButton test;
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
+    NavigationView navigationView;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.appbar_options, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_item_one) {
+
+            Log.i("MENU_DRAWER_TAG", "Sos");
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        getSupportActionBar().hide();
-        test = findViewById(R.id.drawer);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-                View includedLayout = inflater.inflate(R.layout.activity_drawer_menu, null, false);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navidationView);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.menu_open,R.string.menu_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-                // Add the included layout to the current layout
-                ViewGroup layout = findViewById(R.id.home_layout);
-                layout.addView(includedLayout);
-//                Intent intent = new Intent(home.this,drawer_menu.class);
-//                startActivity(intent);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.test:
+                        Log.i("MENU_DRAWER_TAG", "HOME ");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                }
+                return false;
             }
         });
-
-
 
         int sliderArray[] = {R.drawable.slide2,R.drawable.slide1};
         slider=(ViewFlipper)findViewById(R.id.slider);

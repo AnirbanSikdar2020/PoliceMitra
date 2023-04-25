@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PoliceMitra</string>
+    <string name="menu_open">open</string>
+    <string name="menu_close">close</string>
 </resources>
