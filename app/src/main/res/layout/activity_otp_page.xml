@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="19dp"
         android:background="@drawable/textbox"
-        android:hint="Enter OTP"
+        android:hint="Enter OTP1"
         android:inputType="text"
         android:padding="3dp"
         android:textSize="19sp" />
