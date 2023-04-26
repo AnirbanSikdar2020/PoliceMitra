@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:padding="20dp"
-    android:background="@color/purple_500">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/base_color"
+    android:orientation="vertical"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:id="@+id/layout_menu">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            app:cardCornerRadius="100dp"
+            android:layout_height="100dp">
+
+            <ImageButton
+                android:id="@+id/profile_pics"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/slide1"
+                android:layout_height="match_parent"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/testing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Hello world"
+            android:textStyle="bold"
+            android:textSize="25dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Hello@abc.com"
+            android:textStyle="bold"
+            android:textSize="15dp" />
+    </LinearLayout>
 </LinearLayout>

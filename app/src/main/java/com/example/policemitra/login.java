@@ -29,7 +29,6 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
         signup = findViewById(R.id.signup);
         signin = findViewById(R.id.signin);
         password = findViewById(R.id.pwd);
@@ -39,7 +38,7 @@ public class login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(login.this,home.class);
+                Intent intent = new Intent(login.this,MainActivity.class);
                 startActivity(intent);
             }
         });

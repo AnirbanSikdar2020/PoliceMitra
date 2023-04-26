@@ -7,23 +7,23 @@
             android:icon="@drawable/baseline_map_24"
             android:title="Map" />
         <item
-            android:id="@+id/map"
-            android:icon="@drawable/complaint"
+            android:id="@+id/complaints"
+            android:icon="@drawable/baseline_map_24"
             android:title="Complaints" />
         <item
-            android:id="@+id/map"
+            android:id="@+id/verify"
             android:icon="@drawable/baseline_domain_verification_24"
             android:title="Verification" />
         <item
-            android:id="@+id/map"
+            android:id="@+id/gen"
             android:icon="@drawable/baseline_insert_drive_file_24"
             android:title="General" />
         <item
-            android:id="@+id/map"
+            android:id="@+id/feedback"
             android:icon="@drawable/baseline_feedback_24"
             android:title="Feedback" />
         <item
-            android:id="@+id/map"
+            android:id="@+id/logout"
             android:icon="@drawable/logout"
             android:title="Log out" />
 

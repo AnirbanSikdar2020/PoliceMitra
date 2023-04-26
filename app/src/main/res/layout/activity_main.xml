@@ -5,18 +5,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home"
+    tools:context=".MainActivity"
     android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/home_layout"
         >
-<!--        <include layout="@layout/activity_appbar" android:id="@+id/menu"/>-->
+        <include layout="@layout/appbar_main"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
         <ViewFlipper
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/slider"
+            />
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello"/>
+        <ImageView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             />
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView
