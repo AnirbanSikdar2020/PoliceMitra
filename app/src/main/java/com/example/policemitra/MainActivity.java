@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         profile_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
                 loadFragment(new Profile());
             }
         });
@@ -83,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId())
                 {
-                    case R.id.test:
+                    case R.id.map:
                         loadFragment(new home());
-
+//                        loadFragment(new Profile());
                         Log.i("MENU_DRAWER_TAG", "HOME ");
 //                        Intent intent = new Intent(home.this,profile.class);
 //                        startActivity(intent);
