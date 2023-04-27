@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
         profile_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,login.class);
-                startActivity(intent);
+                loadFragment(new Profile());
             }
         });
 
