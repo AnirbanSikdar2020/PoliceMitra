@@ -93,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
 //                        profile_picture.setImageResource(R.drawable.login_background);
 ////                        drawerLayout.closeDrawer(GravityCompat.START);
                         break;
+                    case R.id.gen:
+                        loadFragment(new editprofile());
+                        break;
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
