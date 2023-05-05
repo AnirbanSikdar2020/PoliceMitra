@@ -26,7 +26,6 @@ public class registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        getSupportActionBar().hide();
         signin = findViewById(R.id.signin);
         setdate = findViewById(R.id.calendar);
         dob = findViewById(R.id.dob);
