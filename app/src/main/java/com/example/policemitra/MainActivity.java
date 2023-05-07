@@ -126,9 +126,15 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(new home());
                         Log.i("MENU_DRAWER_TAG", "HOME ");
                         break;
-                    case R.id.map:
-                        loadFragment(new home());
-//                        Log.i("MENU_DRAWER_TAG", "HOME ");
+//
+//                    case R.id.map:
+//                        loadFragment(new home());
+//                        Log.i();
+//                        break;
+
+                    case R.id.complaints:
+                        Intent intent = new Intent(MainActivity.this,Complaints.class);
+                        startActivity(intent);
                         break;
                     case R.id.gen:
                         loadFragment(new editprofile());
