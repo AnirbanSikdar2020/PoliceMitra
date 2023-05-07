@@ -39,6 +39,7 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -131,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
 //                        loadFragment(new home());
 //                        Log.i();
 //                        break;
+                    case R.id.logout:
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intentLogin = new Intent(MainActivity.this,login.class);
+                        startActivity(intentLogin);
+                        break;
 
                     case R.id.complaints:
                         Intent intent = new Intent(MainActivity.this,Complaints.class);
