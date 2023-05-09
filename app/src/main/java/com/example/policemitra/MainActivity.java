@@ -139,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.complaints:
-                        Intent intent = new Intent(MainActivity.this,Complaints.class);
-                        startActivity(intent);
+                        loadFragment(new complaint());
+//                        Intent intent = new Intent(MainActivity.this,Complaints.class);
+//                        startActivity(intent);
                         break;
                     case R.id.gen:
                         loadFragment(new editprofile());

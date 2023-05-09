@@ -24,7 +24,6 @@ public class loader {
         builder.setCancelable(true);
 
         dialog = builder.create();
-//        builder.show();
         dialog.show();
     }
 

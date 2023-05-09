@@ -9,8 +9,6 @@
     android:paddingRight="15dp"
     tools:context=".registration">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,7 +81,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-
 
                         <TextView
                             android:layout_width="wrap_content"
