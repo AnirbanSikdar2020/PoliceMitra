@@ -32,6 +32,7 @@ import javax.mail.internet.MimeMessage;
 
 public class otp_page {
     PinView otp_box;
+    loader loader;
     Activity activity;
     private AlertDialog dialog;
     Button verify;
@@ -57,6 +58,7 @@ public class otp_page {
         builder.setCancelable(true);
         dialog = builder.create();
         dialog.show();
+        loader = new loader(activity);
         phone = uDetails.get(1);
         name = uDetails.get(0);
         email = uDetails.get(2);
@@ -79,6 +81,7 @@ public class otp_page {
                 if (otp_box.getText().toString().equals(String.valueOf(b))) {
                     Toast.makeText(activity, "Verified", Toast.LENGTH_SHORT).show();
                     if (selector == "reg") {
+                        loader.loaderShow();
                         register(uDetails);
                     }
 
@@ -155,6 +158,7 @@ public class otp_page {
                         } else {
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            loader.loaderHide();
                             dialog.dismiss();
 
                         }

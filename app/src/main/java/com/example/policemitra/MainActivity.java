@@ -48,6 +48,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
+    loader loader = new loader(MainActivity.this);
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
@@ -85,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        loader.loaderShow();
+        loader.loaderHide();
         //profile picture
         NavigationView navigationView = (NavigationView) findViewById(R.id.navidationView);
         View headerView = navigationView.getHeaderView(0);
