@@ -2,18 +2,12 @@ package com.example.policemitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,12 +20,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Calendar;
-
 public class login extends AppCompatActivity {
 
     loader loader = new loader(login.this);
-    TextView signup;
+    forgot_password forgot = new forgot_password(login.this);
+
+    TextView signup,forgotPwd;
     int counter = 0;
     EditText password, email;
     ImageButton eye;
@@ -69,8 +63,18 @@ public class login extends AppCompatActivity {
         eye = findViewById(R.id.pwdEye);
         textInputLayoutEmail = findViewById(R.id.textInputEmail);
         textInputLayoutPassword = findViewById(R.id.textInputPwd);
+        forgotPwd = findViewById(R.id.fpwd);
         password.setTransformationMethod(new PasswordTransformationMethod());
         mAuth = FirebaseAuth.getInstance();
+        forgotPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgot.forgotPasswordShow();
+
+//                Intent intent = new Intent(login.this, forgot_password.class);
+//                startActivity(intent);
+            }
+        });
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override

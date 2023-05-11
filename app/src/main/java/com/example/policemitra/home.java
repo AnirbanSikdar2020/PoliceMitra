@@ -10,11 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link home#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class home extends Fragment {
 
     ViewFlipper slider;
@@ -32,7 +27,7 @@ public class home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        int sliderArray[] = {R.drawable.slide2,R.drawable.slide1};
+        int sliderArray[] = {R.drawable.pic_1,R.drawable.pic_2,R.drawable.pic_3};
         slider=view.findViewById(R.id.slider);
 
         for(int i=0;i<sliderArray.length;i++)

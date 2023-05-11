@@ -1,15 +1,9 @@
 package com.example.policemitra;
-
-import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,18 +11,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
+import java.util.ArrayList;
 import java.util.Calendar;
-
 public class registration extends AppCompatActivity {
-
+    otp_page otp = new otp_page(registration.this);
     TextView signin,signup;
     ImageButton setdate;
     String sel_date;
@@ -89,50 +77,50 @@ public class registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //phone validation
-                if(TextUtils.isEmpty(phone.getText()) || String.valueOf(phone.getText()).length()!=10)
-                {
-                    showError(textInputLayoutPhone,"Please enter correct phone number");
-                    counter++;
-                }
-                else
-                {
-                    textInputLayoutPhone.setError(null);
-                    counter--;
-                }
+//                if(TextUtils.isEmpty(phone.getText()) || String.valueOf(phone.getText()).length()!=10)
+//                {
+//                    showError(textInputLayoutPhone,"Please enter correct phone number");
+//                    counter++;
+//                }
+//                else
+//                {
+//                    textInputLayoutPhone.setError(null);
+//                    counter--;
+//                }
 
                 //aadhar validation
-                if(TextUtils.isEmpty(aadhar.getText()) || String.valueOf(aadhar.getText()).length()!=12)
-                {
-                    showError(textInputLayoutAadhar,"Please enter correct aadhar number");
-                    counter++;
-                }
-                else
-                {
-                    textInputLayoutAadhar.setError(null);
-                    counter--;
-                }
-
-                if(TextUtils.isEmpty(name.getText()))
-                {
-                    showError(textInputLayoutName,"Name cannot be blank");
-                    counter++;
-                }
-                else
-                {
-                    textInputLayoutName.setError(null);
-                    counter--;
-                }
-
-                if(TextUtils.isEmpty(email.getText()))
-                {
-                    showError(textInputLayoutEmail,"Email cannot be blank");
-                    counter++;
-                }
-                else
-                {
-                    textInputLayoutEmail.setError(null);
-                    counter--;
-                }
+//                if(TextUtils.isEmpty(aadhar.getText()) || String.valueOf(aadhar.getText()).length()!=12)
+//                {
+//                    showError(textInputLayoutAadhar,"Please enter correct aadhar number");
+//                    counter++;
+//                }
+//                else
+//                {
+//                    textInputLayoutAadhar.setError(null);
+//                    counter--;
+//                }
+//
+//                if(TextUtils.isEmpty(name.getText()))
+//                {
+//                    showError(textInputLayoutName,"Name cannot be blank");
+//                    counter++;
+//                }
+//                else
+//                {
+//                    textInputLayoutName.setError(null);
+//                    counter--;
+//                }
+//
+//                if(TextUtils.isEmpty(email.getText()))
+//                {
+//                    showError(textInputLayoutEmail,"Email cannot be blank");
+//                    counter++;
+//                }
+//                else
+//                {
+//                    textInputLayoutEmail.setError(null);
+//                    counter--;
+//                }
 
 //                if(TextUtils.isEmpty(gender.getText()))
 //                {
@@ -145,16 +133,16 @@ public class registration extends AppCompatActivity {
 //                    counter--;
 //                }
 
-                if(TextUtils.isEmpty(dob.getText()))
-                {
-                    showError(textInputLayoutDob,"DOB cannot be blank");
-                    counter++;
-                }
-                else
-                {
-                    textInputLayoutDob.setError(null);
-                    counter--;
-                }
+//                if(TextUtils.isEmpty(dob.getText()))
+//                {
+//                    showError(textInputLayoutDob,"DOB cannot be blank");
+//                    counter++;
+//                }
+//                else
+//                {
+//                    textInputLayoutDob.setError(null);
+//                    counter--;
+//                }
 
                 if(String.valueOf(password.getText()).equals(String.valueOf(confPassword.getText())))
                 {
@@ -162,39 +150,45 @@ public class registration extends AppCompatActivity {
                         textInputLayoutPassword.setError(null);
                         textInputLayoutCpassword.setError(null);
                         if(counter<=0) {
+                            ArrayList<String> u_details = new ArrayList<>();
                             String Uname, Uphone, Uemail, Ugender, Uaadhar, Udob, Upassword;
-                            Uname = String.valueOf(name.getText());
-                            Uphone = String.valueOf(phone.getText());
-                            Uemail = String.valueOf(email.getText());
-//                            Ugender = String.valueOf(gender.getText());
-                            Uaadhar = String.valueOf(aadhar.getText());
-                            Udob = String.valueOf(dob.getText());
-                            Upassword = String.valueOf(password.getText());
-
-                            Toast.makeText(registration.this, "Success", Toast.LENGTH_SHORT).show();
-                                                mAuth.createUserWithEmailAndPassword(Uemail, Upassword)
-                                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                                if (task.isSuccessful()) {
-                                                                    // Sign in success, update UI with the signed-in user's information
-                            //                                        Log.d(TAG, "createUserWithEmail:success");
-                                                                    FirebaseUser user = mAuth.getCurrentUser();
-                                                                    Toast.makeText(registration.this, "Authentication success.",
-                                                                            Toast.LENGTH_SHORT).show();
-                                                                    Intent intentLogin = new Intent(registration.this,MainActivity.class);
-                                                                    startActivity(intentLogin);
-
-                                                                } else {
-                                                                    // If sign in fails, display a message to the user.
-                                                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                                    Toast.makeText(registration.this, "Authentication failed.",
-                                                                            Toast.LENGTH_SHORT).show();
-
-                                                                }
-                                                            }
-                                                        });
+                            u_details.add(String.valueOf(name.getText())); //0
+                            u_details.add(String.valueOf(phone.getText()));//1
+                            u_details.add(String.valueOf(email.getText()));//2
+//                            Ugender = String.valueOf(gender.getText());//3
+                            u_details.add(String.valueOf(aadhar.getText()));//4
+                            u_details.add(String.valueOf(dob.getText()));//5
+                            u_details.add(String.valueOf(password.getText()));//6
+                            otp.otpDialogShow(u_details,"reg");
+//                            Toast.makeText(registration.this,String.valueOf(FLAG), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(registration.this, otp.otpDialogShow(Uemail,Uname), Toast.LENGTH_SHORT).show();
+//                            if(otp.otpDialogShow(Uemail,Uname).equals("true")){
+//                                Toast.makeText(registration.this, "Success", Toast.LENGTH_SHORT).show();
+//                                mAuth.createUserWithEmailAndPassword(Uemail, Upassword)
+//                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                                if (task.isSuccessful()) {
+//                                                    // Sign in success, update UI with the signed-in user's information
+//                                                    //                                        Log.d(TAG, "createUserWithEmail:success");
+//                                                    FirebaseUser user = mAuth.getCurrentUser();
+//                                                    Toast.makeText(registration.this, "Authentication success.",
+//                                                            Toast.LENGTH_SHORT).show();
+//                                                    Intent intentLogin = new Intent(registration.this,MainActivity.class);
+//                                                    startActivity(intentLogin);
+//
+//                                                } else {
+//                                                    // If sign in fails, display a message to the user.
+//                                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                                                    Toast.makeText(registration.this, "Authentication failed.",
+//                                                            Toast.LENGTH_SHORT).show();
+//
+//                                                }
+//                                            }
+//                                        });
+//                            }
                         }
+
                     }
                     else
                     {
