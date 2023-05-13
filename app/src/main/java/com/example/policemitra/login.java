@@ -35,21 +35,6 @@ public class login extends AppCompatActivity {
 
     TextInputLayout textInputLayoutEmail, textInputLayoutPassword;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        loader.loaderShow();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(login.this, MainActivity.class);
-            startActivity(intent);
-            loader.loaderHide();
-        }
-        else
-        {
-            loader.loaderHide();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +55,6 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 forgot.forgotPasswordShow();
-
-//                Intent intent = new Intent(login.this, forgot_password.class);
-//                startActivity(intent);
             }
         });
 
@@ -107,16 +89,12 @@ public class login extends AppCompatActivity {
                                             Intent intent = new Intent(login.this, MainActivity.class);
                                             startActivity(intent);
                                             loader.loaderHide();
-//                                    updateUI(user);
                                         } else {
                                             Toast.makeText(login.this, "Please check your email or password", Toast.LENGTH_SHORT).show();
                                             loader.loaderHide();
-                                            // If sign in fails, display a message to the user.
-//                                    updateUI(null);
                                         }
                                     }
                                 });
-
                     }
                 } else {
                     showError(textInputLayoutPassword, "Password must be at least 6 characters");
@@ -137,17 +115,19 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (password.getText().toString().isEmpty()) {
-                    password.setError("Please Enter Password");
-                } else {
+//                if (password.getText().toString().isEmpty()) {
+//                    password.setError("Please Enter Password");
+//                } else {
                     if (show_pwd == true) {
+                        eye.setImageResource(R.drawable.hidden);
                         password.setTransformationMethod(new PasswordTransformationMethod());
                         show_pwd = false;
                     } else {
+                        eye.setImageResource(R.drawable.password_eye);
                         password.setTransformationMethod(null);
                         show_pwd = true;
                     }
-                }
+//                }
             }
         });
     }

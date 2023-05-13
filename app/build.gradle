@@ -49,6 +49,7 @@ dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-firestore'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:25.1.0'
     implementation 'io.github.chaosleung:pinview:1.4.4'

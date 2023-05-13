@@ -70,48 +70,70 @@
                 android:id="@+id/textInputGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <RadioGroup
-                    android:id="@+id/genderGroup"
+                    android:id="@+id/gender_radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginLeft="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="10dp"
+                        android:text="Gender"
+                        android:textSize="19sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:text="Gender"
-                            android:textSize="19sp" />
+                    <RadioButton
+                        android:id="@+id/male_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:textSize="19sp"/>
 
-                        <!--            <LinearLayout-->
-                        <!--                android:layout_width="350dp"-->
-                        <!--                android:layout_height="wrap_content"-->
-                        <!--                android:orientation="horizontal">-->
+                    <RadioButton
+                        android:id="@+id/female_radio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:textSize="19sp"/>
 
-                        <RadioButton
-                            android:id="@+id/radioMale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:text="Male"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/radioFemale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:checked="false"
-                            android:text="Female"
-                            android:textSize="18sp" />
-                    </LinearLayout>
                 </RadioGroup>
+
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/genderGroup"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="10dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="10dp"-->
+<!--                            android:text="Gender"-->
+<!--                            android:textSize="19sp" />-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/radioMale"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:checked="false"-->
+<!--                            android:text="Male"-->
+<!--                            android:textSize="18sp" />-->
+
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/radioFemale"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="10dp"-->
+<!--                            android:checked="false"-->
+<!--                            android:text="Female"-->
+<!--                            android:textSize="18sp" />-->
+<!--                    </LinearLayout>-->
+<!--                </RadioGroup>-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

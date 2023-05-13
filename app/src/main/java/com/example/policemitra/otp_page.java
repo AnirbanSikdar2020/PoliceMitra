@@ -1,24 +1,37 @@
 package com.example.policemitra;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static com.example.policemitra.SendMail.EMAIL;
 import static com.example.policemitra.SendMail.PASSWORD;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import com.chaos.view.PinView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -38,6 +51,7 @@ public class otp_page {
     Button verify;
     int b;
     FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView resend;
     String name, email, phone;
 
@@ -82,11 +96,13 @@ public class otp_page {
                     Toast.makeText(activity, "Verified", Toast.LENGTH_SHORT).show();
                     if (selector == "reg") {
                         loader.loaderShow();
-                        register(uDetails);
+                        register(uDetails,v);
                     }
 
                 } else {
-                    Toast.makeText(activity, "Incorrect OTP", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Incorrect OTP, try again", Toast.LENGTH_SHORT).show();
+                    otp_box.setText("");
+                    b=0;
                 }
             }
         });
@@ -142,21 +158,46 @@ public class otp_page {
         }
     }
 
-    public void register(ArrayList<String> uDetails) {
+    public void register(ArrayList<String> uDetails,View v) {
         mAuth.createUserWithEmailAndPassword(uDetails.get(2), uDetails.get(5))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(activity, "Authentication success.",
-                                    Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            Intent intentLogin = new Intent(activity, MainActivity.class);
-                            activity.startActivity(intentLogin);
-
+                            HashMap<String, Object> userDetails = new HashMap<>();
+                            userDetails.put("Name", uDetails.get(0));
+                            userDetails.put("Phone",uDetails.get(1));
+                            userDetails.put("Email", uDetails.get(2));
+                            userDetails.put("Gender", uDetails.get(3));
+                            userDetails.put("Aadhar", uDetails.get(4));
+                            userDetails.put("Dob", uDetails.get(5));
+                            userDetails.put("Password", uDetails.get(6));
+                            // Add a new document with a generated ID
+                            db.collection("users")
+                                    .document(uDetails.get(2).toString())
+                                    .set(userDetails)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(activity, "Authentication success.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                            Intent intentLogin = new Intent(activity, MainActivity.class);
+                                            activity.startActivity(intentLogin);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(activity, "Registration failed, try again.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            loader.loaderHide();
+                                            dialog.dismiss();
+                                        }
+                                    });
                         } else {
-                            Toast.makeText(activity, "Authentication failed.",
+                            Toast.makeText(activity, "Authentication failed, try again.",
                                     Toast.LENGTH_SHORT).show();
                             loader.loaderHide();
                             dialog.dismiss();
@@ -164,6 +205,7 @@ public class otp_page {
                         }
                     }
                 });
+
     }
 }
 

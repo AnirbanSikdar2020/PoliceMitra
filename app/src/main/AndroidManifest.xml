@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- <uses-feature -->
+    <!-- android:name="android.hardware.camera" -->
+    <!-- android:required="true" /> -->
+    <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-<!--    <uses-feature-->
-<!--        android:name="android.hardware.camera"-->
-<!--        android:required="true" />-->
-
-<!--    <uses-permission android:name="android.permission.CAMERA"/>-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
     <queries>
-        <!--        <intent>-->
-        <!--            <action android:name="android.media.action.IMAGE_CAPTURE" />-->
-        <!--        </intent>-->
+
+        <!-- <intent> -->
+        <!-- <action android:name="android.media.action.IMAGE_CAPTURE" /> -->
+        <!-- </intent> -->
         <intent>
             <action android:name="android.intent.action.PICK" />
+
             <data android:mimeType="vnd.android.cursor.dir/image" />
         </intent>
     </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -29,6 +31,15 @@
         android:theme="@style/Theme.PoliceMitra"
         tools:targetApi="31">
         <activity
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:theme="@style/Theme.PoliceMitraSplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
@@ -36,9 +47,8 @@
             android:exported="false" />
         <activity
             android:name=".otp_page"
-            android:exported="false"/>
-<!--            android:windowSoftInputMode="adjustResize"-->
-<!--            />-->
+            android:exported="false" /> <!-- android:windowSoftInputMode="adjustResize" -->
+        <!-- /> -->
         <activity
             android:name=".forgot_password"
             android:exported="false" />
@@ -47,15 +57,12 @@
             android:exported="false" />
         <activity
             android:name=".login"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

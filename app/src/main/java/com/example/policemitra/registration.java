@@ -19,10 +19,9 @@ public class registration extends AppCompatActivity {
     otp_page otp = new otp_page(registration.this);
     TextView signin,signup;
     ImageButton setdate;
-    String sel_date;
+    String sel_date, gender;
     EditText name,phone,email,aadhar,dob,password,confPassword;
     RadioGroup genderGroup;
-    RadioButton gender;
     FirebaseAuth mAuth;
     int date, year, month, hour, minute;
     int d, y, mon, h, m, counter=0;
@@ -36,7 +35,6 @@ public class registration extends AppCompatActivity {
         textInputLayoutName = findViewById(R.id.textInputName);
         textInputLayoutPhone = findViewById(R.id.textInputPhone);
         textInputLayoutEmail = findViewById(R.id.textInputEmail);
-        textInputLayoutGender = findViewById(R.id.textInputGender);
         textInputLayoutAadhar = findViewById(R.id.textInputAadhar);
         textInputLayoutDob = findViewById(R.id.textInputDob);
         textInputLayoutPassword = findViewById(R.id.textInputPwd);
@@ -49,11 +47,18 @@ public class registration extends AppCompatActivity {
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phone);
         email = findViewById(R.id.email);
-        genderGroup = findViewById(R.id.genderGroup);
-        int selectedId = genderGroup.getCheckedRadioButtonId();
+        genderGroup = findViewById(R.id.gender_radio_group);
+        genderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton checkedRadioButton = group.findViewById(checkedId);
+                boolean isChecked = checkedRadioButton.isChecked();
+                if (isChecked) {
+                    gender = checkedRadioButton.getText().toString();
+                }
+            }
+        });
 
-        // find the radiobutton by returned id
-        gender = findViewById(selectedId);
         aadhar = findViewById(R.id.aadhar);
         password = findViewById(R.id.pwd);
         confPassword = findViewById(R.id.cpwd);
@@ -155,7 +160,7 @@ public class registration extends AppCompatActivity {
                             u_details.add(String.valueOf(name.getText())); //0
                             u_details.add(String.valueOf(phone.getText()));//1
                             u_details.add(String.valueOf(email.getText()));//2
-//                            Ugender = String.valueOf(gender.getText());//3
+                            u_details.add(String.valueOf(gender));//3
                             u_details.add(String.valueOf(aadhar.getText()));//4
                             u_details.add(String.valueOf(dob.getText()));//5
                             u_details.add(String.valueOf(password.getText()));//6
@@ -203,6 +208,12 @@ public class registration extends AppCompatActivity {
             }
         });
 
+        textInputLayoutDob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDate(v);
+            }
+        });
         setdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -213,7 +224,6 @@ public class registration extends AppCompatActivity {
 
     public void setDate(View view) {
         new DatePickerDialog(registration.this, (datePicker, year, month, date) -> {
-
             d=date;
             mon=month;
             y=year;

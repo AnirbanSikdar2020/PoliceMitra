@@ -75,7 +75,7 @@
                         android:layout_marginLeft="-60dp"
                         android:layout_marginTop="20dp"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/password_eye" />
+                        android:src="@drawable/hidden" />
                 </LinearLayout>
             </com.google.android.material.textfield.TextInputLayout>
 
