@@ -128,16 +128,16 @@ public class registration extends AppCompatActivity {
                     counter--;
                 }
 
-                if(TextUtils.isEmpty(gender))
-                {
-                    showError(textInputLayoutGender,"Gender cannot be blank");
-                    counter++;
-                }
-                else
-                {
-                    textInputLayoutGender.setError(null);
-                    counter--;
-                }
+//                if(TextUtils.isEmpty(gender))
+//                {
+//                    showError(textInputLayoutGender,"Gender cannot be blank");
+//                    counter++;
+//                }
+//                else
+//                {
+//                    textInputLayoutGender.setError(null);
+//                    counter--;
+//                }
 
                 if(TextUtils.isEmpty(dob.getText()))
                 {
