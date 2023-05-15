@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -82,72 +83,72 @@ public class registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //phone validation
-//                if(TextUtils.isEmpty(phone.getText()) || String.valueOf(phone.getText()).length()!=10)
-//                {
-//                    showError(textInputLayoutPhone,"Please enter correct phone number");
-//                    counter++;
-//                }
-//                else
-//                {
-//                    textInputLayoutPhone.setError(null);
-//                    counter--;
-//                }
+                if(TextUtils.isEmpty(phone.getText()) || String.valueOf(phone.getText()).length()!=10)
+                {
+                    showError(textInputLayoutPhone,"Please enter correct phone number");
+                    counter++;
+                }
+                else
+                {
+                    textInputLayoutPhone.setError(null);
+                    counter--;
+                }
 
-                //aadhar validation
-//                if(TextUtils.isEmpty(aadhar.getText()) || String.valueOf(aadhar.getText()).length()!=12)
-//                {
-//                    showError(textInputLayoutAadhar,"Please enter correct aadhar number");
-//                    counter++;
-//                }
-//                else
-//                {
-//                    textInputLayoutAadhar.setError(null);
-//                    counter--;
-//                }
-//
-//                if(TextUtils.isEmpty(name.getText()))
-//                {
-//                    showError(textInputLayoutName,"Name cannot be blank");
-//                    counter++;
-//                }
-//                else
-//                {
-//                    textInputLayoutName.setError(null);
-//                    counter--;
-//                }
-//
-//                if(TextUtils.isEmpty(email.getText()))
-//                {
-//                    showError(textInputLayoutEmail,"Email cannot be blank");
-//                    counter++;
-//                }
-//                else
-//                {
-//                    textInputLayoutEmail.setError(null);
-//                    counter--;
-//                }
+//                aadhar validation
+                if(TextUtils.isEmpty(aadhar.getText()) || String.valueOf(aadhar.getText()).length()!=12)
+                {
+                    showError(textInputLayoutAadhar,"Please enter correct aadhar number");
+                    counter++;
+                }
+                else
+                {
+                    textInputLayoutAadhar.setError(null);
+                    counter--;
+                }
 
-//                if(TextUtils.isEmpty(gender.getText()))
-//                {
-//                    showError(textInputLayoutGender,"Gender cannot be blank");
-//                    counter++;
-//                }
-//                else
-//                {
-//                    textInputLayoutGender.setError(null);
-//                    counter--;
-//                }
+                if(TextUtils.isEmpty(name.getText()))
+                {
+                    showError(textInputLayoutName,"Name cannot be blank");
+                    counter++;
+                }
+                else
+                {
+                    textInputLayoutName.setError(null);
+                    counter--;
+                }
 
-//                if(TextUtils.isEmpty(dob.getText()))
-//                {
-//                    showError(textInputLayoutDob,"DOB cannot be blank");
-//                    counter++;
-//                }
-//                else
-//                {
-//                    textInputLayoutDob.setError(null);
-//                    counter--;
-//                }
+                if(TextUtils.isEmpty(email.getText()))
+                {
+                    showError(textInputLayoutEmail,"Email cannot be blank");
+                    counter++;
+                }
+                else
+                {
+                    textInputLayoutEmail.setError(null);
+                    counter--;
+                }
+
+                if(TextUtils.isEmpty(gender))
+                {
+                    showError(textInputLayoutGender,"Gender cannot be blank");
+                    counter++;
+                }
+                else
+                {
+                    textInputLayoutGender.setError(null);
+                    counter--;
+                }
+
+                if(TextUtils.isEmpty(dob.getText()))
+                {
+                    showError(textInputLayoutDob,"DOB cannot be blank");
+                    counter++;
+                }
+                else
+                {
+                    textInputLayoutDob.setError(null);
+                    counter--;
+                }
 
                 if(String.valueOf(password.getText()).equals(String.valueOf(confPassword.getText())))
                 {
