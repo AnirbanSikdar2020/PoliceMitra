@@ -53,11 +53,12 @@
             android:name=".forgot_password"
             android:exported="false" />
         <activity
-            android:name=".registration"
-            android:exported="false" />
-        <activity
             android:name=".login"
             android:exported="false">
+        <activity
+            android:name=".registration"
+            android:exported="false" />
+
 
         </activity>
         <activity
