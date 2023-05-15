@@ -156,7 +156,6 @@ public class registration extends AppCompatActivity {
                         textInputLayoutCpassword.setError(null);
                         if(counter<=0) {
                             ArrayList<String> u_details = new ArrayList<>();
-                            String Uname, Uphone, Uemail, Ugender, Uaadhar, Udob, Upassword;
                             u_details.add(String.valueOf(name.getText())); //0
                             u_details.add(String.valueOf(phone.getText()));//1
                             u_details.add(String.valueOf(email.getText()));//2
@@ -165,33 +164,6 @@ public class registration extends AppCompatActivity {
                             u_details.add(String.valueOf(dob.getText()));//5
                             u_details.add(String.valueOf(password.getText()));//6
                             otp.otpDialogShow(u_details,"reg");
-//                            Toast.makeText(registration.this,String.valueOf(FLAG), Toast.LENGTH_SHORT).show();
-//                            Toast.makeText(registration.this, otp.otpDialogShow(Uemail,Uname), Toast.LENGTH_SHORT).show();
-//                            if(otp.otpDialogShow(Uemail,Uname).equals("true")){
-//                                Toast.makeText(registration.this, "Success", Toast.LENGTH_SHORT).show();
-//                                mAuth.createUserWithEmailAndPassword(Uemail, Upassword)
-//                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                                if (task.isSuccessful()) {
-//                                                    // Sign in success, update UI with the signed-in user's information
-//                                                    //                                        Log.d(TAG, "createUserWithEmail:success");
-//                                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                                    Toast.makeText(registration.this, "Authentication success.",
-//                                                            Toast.LENGTH_SHORT).show();
-//                                                    Intent intentLogin = new Intent(registration.this,MainActivity.class);
-//                                                    startActivity(intentLogin);
-//
-//                                                } else {
-//                                                    // If sign in fails, display a message to the user.
-//                                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                                                    Toast.makeText(registration.this, "Authentication failed.",
-//                                                            Toast.LENGTH_SHORT).show();
-//
-//                                                }
-//                                            }
-//                                        });
-//                            }
                         }
 
                     }
