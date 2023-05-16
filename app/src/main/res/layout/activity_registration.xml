@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/image"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    tools:context=".registration">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/image"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        tools:context=".registration">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,70 +74,47 @@
                 android:id="@+id/textInputGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Gender"
+                    android:textSize="17sp" />
+
                 <RadioGroup
                     android:id="@+id/gender_radio_group"
+                    android:weightSum="100"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="Gender"
-                        android:textSize="19sp" />
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/male_radio_button"
+                        android:layout_weight="30"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Male"
-                        android:textSize="19sp"/>
+                        android:textSize="16sp" />
 
                     <RadioButton
                         android:id="@+id/female_radio_button"
+                        android:layout_weight="30"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Female"
-                        android:textSize="19sp"/>
+                        android:textSize="16sp" />
 
+                    <RadioButton
+                        android:id="@+id/others_radio_button"
+                        android:layout_weight="30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Others"
+                        android:textSize="16sp" />
                 </RadioGroup>
-
-<!--                <RadioGroup-->
-<!--                    android:id="@+id/genderGroup"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="10dp">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="horizontal">-->
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginRight="10dp"-->
-<!--                            android:text="Gender"-->
-<!--                            android:textSize="19sp" />-->
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/radioMale"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:checked="false"-->
-<!--                            android:text="Male"-->
-<!--                            android:textSize="18sp" />-->
-
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/radioFemale"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginLeft="10dp"-->
-<!--                            android:checked="false"-->
-<!--                            android:text="Female"-->
-<!--                            android:textSize="18sp" />-->
-<!--                    </LinearLayout>-->
-<!--                </RadioGroup>-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -143,8 +124,9 @@
 
                 <EditText
                     android:id="@+id/aadhar"
+
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="47dp"
                     android:layout_gravity="center"
                     android:background="@drawable/textbox"
                     android:hint="Aadhar Number"
@@ -266,4 +248,5 @@
             </LinearLayout>
 
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

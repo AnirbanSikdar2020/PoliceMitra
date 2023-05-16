@@ -3,6 +3,7 @@ package com.example.policemitra;
 import static androidx.core.content.ContextCompat.getSystemService;
 import static com.example.policemitra.SendMail.EMAIL;
 import static com.example.policemitra.SendMail.PASSWORD;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +55,7 @@ public class otp_page {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView resend;
     String name, email, phone;
+    DBHelper DB;
 
     otp_page(Activity myactivity) {
         activity = myactivity;
@@ -77,6 +79,7 @@ public class otp_page {
         name = uDetails.get(0);
         email = uDetails.get(2);
         mAuth = FirebaseAuth.getInstance();
+        DB = new DBHelper(activity);
         calculateOtp();
         buttonSendEmail(name, phone, email, b);
         resend = dialog.findViewById(R.id.resend);
@@ -96,13 +99,13 @@ public class otp_page {
                     Toast.makeText(activity, "Verified", Toast.LENGTH_SHORT).show();
                     if (selector == "reg") {
                         loader.loaderShow();
-                        register(uDetails,v);
+                        register(uDetails, v);
                     }
 
                 } else {
                     Toast.makeText(activity, "Incorrect OTP, try again", Toast.LENGTH_SHORT).show();
                     otp_box.setText("");
-                    b=0;
+                    b = 0;
                 }
             }
         });
@@ -158,8 +161,8 @@ public class otp_page {
         }
     }
 
-    public void register(ArrayList<String> uDetails,View v) {
-        mAuth.createUserWithEmailAndPassword(uDetails.get(2), uDetails.get(5))
+    public void register(ArrayList<String> uDetails, View v) {
+        mAuth.createUserWithEmailAndPassword(uDetails.get(2), uDetails.get(6))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -167,7 +170,7 @@ public class otp_page {
                             FirebaseUser user = mAuth.getCurrentUser();
                             HashMap<String, Object> userDetails = new HashMap<>();
                             userDetails.put("Name", uDetails.get(0));
-                            userDetails.put("Phone",uDetails.get(1));
+                            userDetails.put("Phone", uDetails.get(1));
                             userDetails.put("Email", uDetails.get(2));
                             userDetails.put("Gender", uDetails.get(3));
                             userDetails.put("Aadhar", uDetails.get(4));
@@ -180,11 +183,24 @@ public class otp_page {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Toast.makeText(activity, "Authentication success.",
+                                            Toast.makeText(activity, "Welcome to PoliceMitra",
                                                     Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
-                                            Intent intentLogin = new Intent(activity, MainActivity.class);
-                                            activity.startActivity(intentLogin);
+                                            Boolean checkInsertData = DB.insertUserData(uDetails.get(0), uDetails.get(2));
+                                            if (checkInsertData == true) {
+                                                dialog.dismiss();
+                                                Intent intentLogin = new Intent(activity, MainActivity.class);
+                                                activity.startActivity(intentLogin);
+                                            } else {
+                                                Boolean checkUpdateData = DB.updateUserData(uDetails.get(0), uDetails.get(2));
+                                                if(checkUpdateData==true)
+                                                {
+                                                    dialog.dismiss();
+                                                    Intent intentLogin = new Intent(activity, MainActivity.class);
+                                                    activity.startActivity(intentLogin);
+                                                }
+                                            }
+
+
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {

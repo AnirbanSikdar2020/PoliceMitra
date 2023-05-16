@@ -1,5 +1,7 @@
 package com.example.policemitra;
 
+import static com.example.policemitra.SendMail.USER_EMAIL;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,6 +22,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,15 +34,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -53,8 +62,13 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     ImageButton actionButton;
-    TextView textView_data;
+    ImageView profile_picture;
+    TextView textView_data,Uemail,Uname;
     Bitmap bitmap;
+    DBHelper DB;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference docRef;
+    private String currentPage;
     private static final int REQUEST_CAMERA_CODE=100;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,14 +102,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         loader.loaderShow();
         loader.loaderHide();
+        DB = new DBHelper(this);
+
         //profile picture
         NavigationView navigationView = (NavigationView) findViewById(R.id.navidationView);
         View headerView = navigationView.getHeaderView(0);
-        ImageButton profile_picture = (ImageButton) headerView.findViewById(R.id.profile_pics);
+        Uemail= headerView.findViewById(R.id.emailId);
+        Uname = headerView.findViewById(R.id.Uname);
+        Cursor res = DB.getData();
+        if(res.getCount()>0){
+            while (res.moveToNext())
+            {
+                Uname.setText(String.valueOf(res.getString(0)));
+                Uemail.setText(String.valueOf(res.getString(1)));
+            }
+        }
+
+        profile_picture = (ImageView) headerView.findViewById(R.id.profile_pics);
         profile_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.closeDrawer(GravityCompat.START);
+                currentPage = "profile";
                 loadFragment(new Profile());
             }
         });
@@ -126,8 +154,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.home:
+                        currentPage="";
                         loadFragment(new home());
-                        Log.i("MENU_DRAWER_TAG", "HOME ");
+//                        Log.i("MENU_DRAWER_TAG", "HOME ");
                         break;
 //
 //                    case R.id.map:
@@ -141,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.complaints:
+                        currentPage="complaints";
                         loadFragment(new complaint());
 //                        Intent intent = new Intent(MainActivity.this,Complaints.class);
 //                        startActivity(intent);
@@ -160,6 +190,11 @@ public class MainActivity extends AppCompatActivity {
         if(drawerLayout.isDrawerOpen(GravityCompat.START))
         {
             drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else if (currentPage!="")
+        {
+            loadFragment(new home());
+            currentPage="";
         }
         else
         {

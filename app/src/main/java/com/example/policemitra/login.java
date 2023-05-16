@@ -1,8 +1,12 @@
 package com.example.policemitra;
 
+import static com.example.policemitra.SendMail.USER_EMAIL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -19,22 +23,24 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class login extends AppCompatActivity {
-
     loader loader = new loader(login.this);
     forgot_password forgot = new forgot_password(login.this);
-
-    TextView signup,forgotPwd;
+    TextView signup, forgotPwd;
     int counter = 0;
     EditText password, email;
     ImageButton eye;
     Boolean show_pwd = false;
     Button signin;
     private FirebaseAuth mAuth;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference docRef;
+    DBHelper DB;
     TextInputLayout textInputLayoutEmail, textInputLayoutPassword;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class login extends AppCompatActivity {
         forgotPwd = findViewById(R.id.fpwd);
         password.setTransformationMethod(new PasswordTransformationMethod());
         mAuth = FirebaseAuth.getInstance();
+        DB = new DBHelper(this);
         forgotPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +68,7 @@ public class login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(email.getText())) {
+                if (TextUtils.isEmpty(email.getText().toString().trim())) {
                     showError(textInputLayoutEmail, "Email cannot be blank");
                     counter++;
                 } else {
@@ -69,32 +76,62 @@ public class login extends AppCompatActivity {
                     counter--;
                 }
 
-                if (String.valueOf(password.getText()).length() >= 6) {
+                if (String.valueOf(password.getText()).trim().length() >= 6) {
                     textInputLayoutPassword.setError(null);
                     if (counter <= 0) {
                         loader.loaderShow();
                         String Uemail, Upassword;
-                        Uemail = String.valueOf(email.getText());
-                        Upassword = String.valueOf(password.getText());
+                        Uemail = String.valueOf(email.getText()).trim();
+                        Upassword = String.valueOf(password.getText()).trim();
 
                         mAuth.signInWithEmailAndPassword(Uemail, Upassword)
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                    public void onComplete(@NonNull Task<AuthResult> task)
+                                    {
+                                        if (task.isSuccessful())
+                                        {
+//                                            Toast.makeText(login.this, "test", Toast.LENGTH_SHORT).show();
+                                            Cursor res = DB.getData();
+//                                            Toast.makeText(login.this,String.valueOf(res.getCount()), Toast.LENGTH_SHORT).show();
+                                            if (res.getCount() > 0) {
+                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                Toast.makeText(login.this, "Successful", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(login.this, MainActivity.class);
+                                                startActivity(intent);
+                                                loader.loaderHide();
+                                            } else {
+                                                docRef = db.collection("users")
+                                                        .document(Uemail);
+                                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document = task.getResult();
+                                                            if (document.exists()) {
+                                                                DB.insertUserData(document.getString("Name"), document.getString("Email"));
+                                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                                Toast.makeText(login.this, "Successful", Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(login.this, MainActivity.class);
+                                                                startActivity(intent);
+                                                                loader.loaderHide();
+                                                            }
+                                                        }
+                                                    }
 
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            FirebaseUser user = mAuth.getCurrentUser();
-                                            Toast.makeText(login.this, "Successful", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(login.this, MainActivity.class);
-                                            startActivity(intent);
-                                            loader.loaderHide();
+                                                });
+
+                                                // Sign in success, update UI with the signed-in user's information
+
+                                            }
                                         } else {
                                             Toast.makeText(login.this, "Please check your email or password", Toast.LENGTH_SHORT).show();
                                             loader.loaderHide();
+
                                         }
                                     }
                                 });
+
                     }
                 } else {
                     showError(textInputLayoutPassword, "Password must be at least 6 characters");
@@ -118,15 +155,15 @@ public class login extends AppCompatActivity {
 //                if (password.getText().toString().isEmpty()) {
 //                    password.setError("Please Enter Password");
 //                } else {
-                    if (show_pwd == true) {
-                        eye.setImageResource(R.drawable.hidden);
-                        password.setTransformationMethod(new PasswordTransformationMethod());
-                        show_pwd = false;
-                    } else {
-                        eye.setImageResource(R.drawable.password_eye);
-                        password.setTransformationMethod(null);
-                        show_pwd = true;
-                    }
+                if (show_pwd == true) {
+                    eye.setImageResource(R.drawable.hidden);
+                    password.setTransformationMethod(new PasswordTransformationMethod());
+                    show_pwd = false;
+                } else {
+                    eye.setImageResource(R.drawable.password_eye);
+                    password.setTransformationMethod(null);
+                    show_pwd = true;
+                }
 //                }
             }
         });

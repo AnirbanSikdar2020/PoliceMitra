@@ -3,46 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/base_color"
     android:orientation="vertical"
     android:paddingTop="15dp"
     android:paddingLeft="15dp"
-    android:id="@+id/layout_menu">
+    android:id="@+id/layout_menu"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
             android:layout_marginTop="20dp"
+            android:id="@+id/cardView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:cardCornerRadius="100dp"
-            android:layout_height="100dp">
+            app:layout_constraintVertical_bias="0.4">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/profile_pics"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:scaleType="centerCrop"
-                android:src="@drawable/slide1"
-                android:layout_height="match_parent"/>
-
+                android:src="@drawable/img" />
         </androidx.cardview.widget.CardView>
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            app:cardCornerRadius="100dp"-->
+<!--            android:layout_height="100dp">-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/profile_pics"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/img" />-->
+<!--        </androidx.cardview.widget.CardView>-->
 
         <TextView
-            android:id="@+id/testing"
+            android:id="@+id/Uname"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Hello world"
             android:textStyle="bold"
-            android:textSize="25dp" />
+            android:textSize="19dp" />
 
         <TextView
+            android:id="@+id/emailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Hello@abc.com"
             android:textStyle="bold"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
     </LinearLayout>
 </LinearLayout>
