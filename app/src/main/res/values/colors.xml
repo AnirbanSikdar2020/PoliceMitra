@@ -2,12 +2,13 @@
 <resources>
     <color name="purple_200">#FFEFBF</color>
     <color name="purple_500">#EDD39D34</color>
-    <color name="base_color">#F1CA55</color>
+    <color name="base_background">#FFE391</color>
     <color name="teal_200">#B67C25</color>
     <color name="teal_700">#FFDBA7</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_700">#FBB44A</color>
     <color name="divider">#A3E4E4E4</color>
+    <color name="base_color">#FAE2C4</color>
 
 </resources>

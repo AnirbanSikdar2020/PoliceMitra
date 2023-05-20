@@ -26,7 +26,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/purple_500</item>
+        <item name="android:statusBarColor">@color/purple_700</item>
         <!-- Customize your theme here. -->
         <item name="pinViewStyle">@style/PinWidget.PinView</item>
     </style>
