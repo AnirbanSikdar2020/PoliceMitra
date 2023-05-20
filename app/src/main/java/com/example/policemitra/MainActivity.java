@@ -46,9 +46,14 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -66,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
     TextView textView_data,Uemail,Uname;
     Bitmap bitmap;
     DBHelper DB;
+    FirebaseDatabase database;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference docRef;
+
+    String emailId;
+
     private String currentPage;
     private static final int REQUEST_CAMERA_CODE=100;
     @Override
@@ -103,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
         loader.loaderShow();
         loader.loaderHide();
         DB = new DBHelper(this);
-
+        database = FirebaseDatabase.getInstance();
+        loader.loaderShow();
         //profile picture
         NavigationView navigationView = (NavigationView) findViewById(R.id.navidationView);
         View headerView = navigationView.getHeaderView(0);
@@ -115,10 +125,26 @@ public class MainActivity extends AppCompatActivity {
             {
                 Uname.setText(String.valueOf(res.getString(0)));
                 Uemail.setText(String.valueOf(res.getString(1)));
+                emailId = String.valueOf(res.getString(1));
+                emailId = emailId.replaceAll("[@.]*", "");
             }
         }
 
         profile_picture = (ImageView) headerView.findViewById(R.id.profile_pics);
+
+        database.getReference().child(emailId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String image = snapshot.getValue(String.class);
+                Picasso.get().load(image).into(profile_picture);
+                loader.loaderHide();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         profile_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

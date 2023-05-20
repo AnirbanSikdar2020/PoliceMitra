@@ -54,11 +54,6 @@ public class crime_registration extends AppCompatActivity {
                 return true;
             }
         });
-//        ActionBar actionBar = getSupportActionBar();
-//
-//        // showing the back button in action bar
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
 }
