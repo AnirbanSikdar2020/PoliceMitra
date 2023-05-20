@@ -5,190 +5,223 @@
     android:layout_height="match_parent"
     android:background="@color/purple_200"
     tools:context=".crime_add">
-    <include android:id="@+id/appbar" layout="@layout/admin_appbar_page"/>
-    <ScrollView
-        android:padding="15dp"
-        android:layout_below="@+id/appbar"
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/admin_appbar_page" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/logindiv"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/logindiv"
-            android:orientation="vertical"
-            android:padding="20dp">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputFileNumber"
+            android:layout_height="match_parent"
+
+            android:padding="15dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/F_Number"
-
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputFileNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="File Number"
-                    android:inputType="text"
-                    android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputAadhar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/name"
+                    <EditText
+                        android:id="@+id/F_Number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:hint="File Number"
+                        android:inputType="text"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="Name"
-                    android:inputType="text"
-                    android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputGender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Gender"
-                    android:textSize="17sp" />
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <RadioGroup
-                    android:id="@+id/gender_radio_group"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputGender"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:id="@+id/male_radio_button"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:text="Male"
-                        android:textSize="16sp" />
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Gender"
+                        android:textSize="17sp" />
 
-                    <RadioButton
-                        android:id="@+id/female_radio_button"
-                        android:layout_width="wrap_content"
+                    <RadioGroup
+                        android:id="@+id/gender_radio_group"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:text="Female"
-                        android:textSize="16sp" />
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="3dp"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
 
-                    <RadioButton
-                        android:id="@+id/others_radio_button"
-                        android:layout_width="wrap_content"
+                        <RadioButton
+                            android:id="@+id/male_radio_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="30"
+                            android:text="Male"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:id="@+id/female_radio_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="30"
+                            android:text="Female"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:id="@+id/others_radio_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="30"
+                            android:text="Others"
+                            android:textSize="16sp" />
+                    </RadioGroup>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/searchBar"
+                    android:background="@color/divider" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/details"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:text="Others"
-                        android:textSize="16sp" />
-                </RadioGroup>
-            </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:gravity="top|start"
+                        android:hint="Details"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!--            <com.google.android.material.textfield.TextInputLayout-->
+                <!--                android:id="@+id/textInputEmail"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content">-->
 
-                <EditText
-                    android:id="@+id/details"
+                <!--                <EditText-->
+                <!--                    android:id="@+id/Email"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:background="@drawable/textbox"-->
+                <!--                    android:hint="Email"-->
+                <!--                    android:inputType="text"-->
+                <!--                    android:textSize="17sp" />-->
+                <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputAadhar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/aadhar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:hint="Aadhar Number"
+                        android:inputType="text"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:hint="Location"
+                        android:inputType="text"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="13dp"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputPoliceStation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/police_station"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:hint="Police Station"
+                        android:inputType=""
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="13dp"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/Registration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="Details"
-                    android:inputType="text"
+                    android:layout_marginTop="18dp"
+                    android:backgroundTint="#5B279700"
+                    android:padding="6dp"
+                    android:text="Register"
+                    android:textAllCaps="false"
                     android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/Email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="Email"
-                    android:inputType="text"
-                    android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-
-                <EditText
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="Location"
-                    android:inputType="text"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="13dp"
-                    android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-
-                <EditText
-                    android:id="@+id/police_station"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/textbox"
-                    android:hint="Police Station"
-                    android:inputType=""
-                    android:paddingLeft="15dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="13dp"
-                    android:textSize="17sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-            <Button
-                android:id="@+id/Registration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="18dp"
-                android:backgroundTint="#5B279700"
-                android:padding="6dp"
-                android:text="Registration"
-                android:textAllCaps="false"
-                android:textSize="17sp" />
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>
+
 
 
 
