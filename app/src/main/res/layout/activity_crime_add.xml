@@ -167,7 +167,37 @@
                         android:inputType="text"
                         android:textSize="17sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/dob"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/textbox"
+                            android:hint="Date of Birth"
+                            android:paddingEnd="60dp"
+                            android:singleLine="true"
+                            android:textSize="17sp" />
+
+                        <ImageButton
+                            android:id="@+id/calendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="-60dp"
+                            android:layout_marginTop="20dp"
+                            android:background="#00FFFFFF"
+                            android:src="@drawable/baseline_calendar_month_24" />
+                    </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLocation"
                     android:layout_width="match_parent"
