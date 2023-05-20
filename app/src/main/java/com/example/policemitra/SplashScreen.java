@@ -3,6 +3,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,9 +24,15 @@ public class SplashScreen extends AppCompatActivity {
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 Intent intent;
-                if (currentUser != null) {
-                    intent = new Intent(SplashScreen.this, MainActivity.class);
-                } else {
+                if(currentUser != null){
+                    if(currentUser.getEmail().equals("policemitra2023@gmail.com")){
+                        intent = new Intent(SplashScreen.this, AdminPanel.class);
+                    }
+                    else{
+                        intent = new Intent(SplashScreen.this, MainActivity.class);
+                    }
+                }
+                else {
                     intent = new Intent(SplashScreen.this, login.class);
                 }
                 startActivity(intent);

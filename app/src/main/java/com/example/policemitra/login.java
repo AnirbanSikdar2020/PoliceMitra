@@ -87,17 +87,20 @@ public class login extends AppCompatActivity {
                         mAuth.signInWithEmailAndPassword(Uemail, Upassword)
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task)
-                                    {
-                                        if (task.isSuccessful())
-                                        {
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
 //                                            Toast.makeText(login.this, "test", Toast.LENGTH_SHORT).show();
                                             Cursor res = DB.getData();
 //                                            Toast.makeText(login.this,String.valueOf(res.getCount()), Toast.LENGTH_SHORT).show();
                                             if (res.getCount() > 0) {
+                                                Intent intent;
                                                 FirebaseUser user = mAuth.getCurrentUser();
-                                                Toast.makeText(login.this, "Successful", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(login.this, MainActivity.class);
+                                                Toast.makeText(login.this, "Welcome to PoliceMitra", Toast.LENGTH_SHORT).show();
+                                                if (Uemail != null && Uemail.equals("policemitra2023@gmail.com")) {
+                                                    intent = new Intent(login.this, AdminPanel.class);
+                                                } else {
+                                                    intent = new Intent(login.this, MainActivity.class);
+                                                }
                                                 startActivity(intent);
                                                 loader.loaderHide();
                                             } else {
@@ -109,10 +112,15 @@ public class login extends AppCompatActivity {
                                                         if (task.isSuccessful()) {
                                                             DocumentSnapshot document = task.getResult();
                                                             if (document.exists()) {
+                                                                Intent intent;
                                                                 DB.insertUserData(document.getString("Name"), document.getString("Email"));
                                                                 FirebaseUser user = mAuth.getCurrentUser();
-                                                                Toast.makeText(login.this, "Successful", Toast.LENGTH_SHORT).show();
-                                                                Intent intent = new Intent(login.this, MainActivity.class);
+                                                                Toast.makeText(login.this, "Welcome to PoliceMitra", Toast.LENGTH_SHORT).show();
+                                                                if (Uemail != null && Uemail.equals("policemitra2023@gmail.com")) {
+                                                                    intent = new Intent(login.this, AdminPanel.class);
+                                                                } else {
+                                                                    intent = new Intent(login.this, MainActivity.class);
+                                                                }
                                                                 startActivity(intent);
                                                                 loader.loaderHide();
                                                             }

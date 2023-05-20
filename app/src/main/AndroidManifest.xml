@@ -31,11 +31,23 @@
         android:theme="@style/Theme.PoliceMitra"
         tools:targetApi="31">
         <activity
+            android:name=".crime_add"
+            android:exported="false" />
+        <activity
+            android:name=".crime_registration"
+            android:exported="false"
+            android:label="@string/title_activity_crime_registration"
+            android:theme="@style/Theme.PoliceMitra" />
+        <activity
+            android:name=".AdminPanel"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/Theme.PoliceMitraSplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,11 +66,10 @@
             android:exported="false" />
         <activity
             android:name=".login"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".registration"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

@@ -8,13 +8,6 @@
     android:paddingRight="15dp"
     tools:context=".editprofile">
 
-    <!--    <FrameLayout-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:paddingLeft="15dp"-->
-    <!--        android:paddingRight="15dp">-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
