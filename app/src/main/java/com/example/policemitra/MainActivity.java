@@ -195,9 +195,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.logout:
                         loader.loaderShow();
                         FirebaseAuth.getInstance().signOut();
-
-                        Intent intentLogin = new Intent(MainActivity.this,login.class);
-                        startActivity(intentLogin);
+                        if(emailId!=null || emailId !=""){
+                            Boolean checkDeleteData = DB.deleteUserData(emailId);
+                            if (checkDeleteData == true)
+                            {
+                                Intent intentLogin = new Intent(MainActivity.this,login.class);
+                                startActivity(intentLogin);
+                            }
+                        }
                         loader.loaderHide();
                         break;
 
