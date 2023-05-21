@@ -113,7 +113,7 @@ public class crime_edit_admin extends AppCompatActivity {
         date = calendar.get(Calendar.DATE);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        profile_img = findViewById(R.id.profile_img);
+        profile_img = findViewById(R.id.profile_imgs);
 
         if(file!=null || file!="")
         {
@@ -209,7 +209,6 @@ public class crime_edit_admin extends AppCompatActivity {
         profile_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Set up the image picker launcher
                 launchImagePicker();
             }
         });

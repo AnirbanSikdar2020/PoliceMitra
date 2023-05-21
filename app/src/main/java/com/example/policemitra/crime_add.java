@@ -43,6 +43,7 @@ public class crime_add extends AppCompatActivity {
     EditText fNumber, name, details, aadhar, location, ps, dob, status;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button reg;
+    Boolean Imageflag=false;
     FirebaseAuth mAuth;
     loader loader;
     TextInputLayout textInputLayoutDob, textInputLayoutStatus, textInputLayoutFileNumber, textInputLayoutDetails, textInputLayoutLocation, textInputLayoutPS, textInputLayoutAadhar, textInputLayoutName, textInputLayoutGender;
@@ -112,6 +113,7 @@ public class crime_add extends AppCompatActivity {
                             profile_img.setImageURI(uri);
                             final StorageReference reference = storage.getReference()
                                     .child(fNumber.getText().toString());
+                            Imageflag=true;
                             reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -228,7 +230,7 @@ public class crime_add extends AppCompatActivity {
                     counter--;
                 }
 
-                if (counter <= 0) {
+                if (counter <= 0 && Imageflag==true) {
                     loader.loaderShow();
                     HashMap<String, Object> crimeDetails = new HashMap<>();
                     crimeDetails.put("File Number", fNumber.getText().toString());
@@ -264,6 +266,8 @@ public class crime_add extends AppCompatActivity {
                                 }
                             });
                     loader.loaderHide();
+                } else if (Imageflag==false) {
+                    Toast.makeText(crime_add.this, "Select image to continue", Toast.LENGTH_SHORT).show();
                 }
             }
         });
