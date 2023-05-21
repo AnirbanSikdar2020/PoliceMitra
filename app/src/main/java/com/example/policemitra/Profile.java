@@ -102,19 +102,26 @@ public class Profile extends Fragment {
                 emailId = emailId.replaceAll("[@.]*", "");
             }
         }
-        database.getReference().child(emailId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String image = snapshot.getValue(String.class);
-                Picasso.get().load(image).into(profile_img);
-                loader.loaderHide();
-            }
+        if(emailId!=null || emailId!="")
+        {
+            database.getReference().child(emailId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String image = snapshot.getValue(String.class);
+                    Picasso.get().load(image).into(profile_img);
+                    loader.loaderHide();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        else {
+            profile_img.setImageResource(R.drawable.img);
+        }
+
         imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 result -> {
                     if (result != null) {

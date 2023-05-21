@@ -131,19 +131,27 @@ public class MainActivity extends AppCompatActivity {
 
         profile_picture = (ImageView) headerView.findViewById(R.id.profile_pics);
 
-        database.getReference().child(emailId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String image = snapshot.getValue(String.class);
-                Picasso.get().load(image).into(profile_picture);
-                loader.loaderHide();
-            }
+        if(emailId!="" || emailId!=null)
+        {
+            database.getReference().child(emailId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String image = snapshot.getValue(String.class);
+                    Picasso.get().load(image).into(profile_picture);
+                    loader.loaderHide();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        else
+        {
+            profile_picture.setImageResource(R.drawable.img);
+        }
+
         profile_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.logout:
                         loader.loaderShow();
                         FirebaseAuth.getInstance().signOut();
+
                         Intent intentLogin = new Intent(MainActivity.this,login.class);
                         startActivity(intentLogin);
                         loader.loaderHide();
