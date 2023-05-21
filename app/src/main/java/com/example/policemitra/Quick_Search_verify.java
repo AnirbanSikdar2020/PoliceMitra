@@ -132,7 +132,7 @@ public class Quick_Search_verify extends AppCompatActivity {
                 stringBuilder.append(textBlock.getValue());
                 stringBuilder.append("\n");
             }
-            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
 //            textView_data.setText(stringBuilder.toString());
 //            button_capture.setText("Retake");
 //            button_copy.setVisibility(View.VISIBLE);
@@ -152,25 +152,34 @@ public class Quick_Search_verify extends AppCompatActivity {
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot doc : task.getResult()) {
-                            fileNum = doc.getString("File Number");
-                            ViewCriminalModel model = new ViewCriminalModel(doc.getString("File Number"),
-                                    doc.getString("File Number"),
-                                    doc.getString("Name"),
-                                    doc.getString("Details"));
-                            modelList.clear();
-                            modelList.add(model);
+                        if(task.getResult().size()>0)
+                        {
+                            for (DocumentSnapshot doc : task.getResult()) {
+                                fileNum = doc.getString("File Number");
+                                ViewCriminalModel model = new ViewCriminalModel(doc.getString("File Number"),
+                                        doc.getString("File Number"),
+                                        doc.getString("Name"),
+                                        doc.getString("Details"));
+                                modelList.clear();
+                                modelList.add(model);
+                            }
+                            adapter = new CustomAdapterCriminalView(Quick_Search_verify.this, modelList);
+                            mRecyclerView.setAdapter(adapter);
+                            loader.loaderHide();
                         }
-                        adapter = new CustomAdapterCriminalView(Quick_Search_verify.this, modelList);
-                        mRecyclerView.setAdapter(adapter);
-                        loader.loaderHide();
+                        else
+                        {
+                            loader.loaderHide();
+                            Toast.makeText(Quick_Search_verify.this, "No details available please submit details for verification", Toast.LENGTH_SHORT).show();
+                        }
+
 
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Quick_Search_verify.this, "No details available please submit details for verification", Toast.LENGTH_SHORT).show();
+
 
                     }
                 });
