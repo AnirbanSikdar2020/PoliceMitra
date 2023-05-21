@@ -7,6 +7,7 @@ import static com.example.policemitra.SendMail.PASSWORD;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -25,8 +26,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +51,8 @@ import javax.mail.internet.MimeMessage;
 
 public class otp_page {
     PinView otp_box;
+    FirebaseStorage storage;
+    FirebaseDatabase database;
     loader loader;
     Activity activity;
     private AlertDialog dialog;
@@ -54,7 +61,7 @@ public class otp_page {
     FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView resend;
-    String name, email, phone;
+    String name, email, phone, emailid;
     DBHelper DB;
 
     otp_page(Activity myactivity) {
@@ -79,6 +86,8 @@ public class otp_page {
         name = uDetails.get(0);
         email = uDetails.get(2);
         mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
+        database = FirebaseDatabase.getInstance();
         DB = new DBHelper(activity);
         calculateOtp();
         buttonSendEmail(name, phone, email, b);
@@ -187,13 +196,32 @@ public class otp_page {
                                                     Toast.LENGTH_SHORT).show();
                                             Boolean checkInsertData = DB.insertUserData(uDetails.get(0), uDetails.get(2));
                                             if (checkInsertData == true) {
-                                                dialog.dismiss();
-                                                Intent intentLogin = new Intent(activity, MainActivity.class);
-                                                activity.startActivity(intentLogin);
+                                                emailid = uDetails.get(2).toString().replaceAll("[@.]*", "");
+                                                Uri uri = Uri.parse("android.resource://com.example.policemitra/drawable/"+R.drawable.img);
+                                                final StorageReference reference = storage.getReference()
+                                                        .child(emailid);
+                                                reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                            @Override
+                                                            public void onSuccess(Uri uri) {
+                                                                database.getReference().child(emailid).setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        loader.loaderHide();
+                                                                        dialog.dismiss();
+                                                                        Intent intentLogin = new Intent(activity, MainActivity.class);
+                                                                        activity.startActivity(intentLogin);
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
                                             } else {
                                                 Boolean checkUpdateData = DB.updateUserData(uDetails.get(0), uDetails.get(2));
-                                                if(checkUpdateData==true)
-                                                {
+                                                if (checkUpdateData == true) {
                                                     dialog.dismiss();
                                                     Intent intentLogin = new Intent(activity, MainActivity.class);
                                                     activity.startActivity(intentLogin);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,18 +23,37 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:padding="15dp">
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintVertical_bias="0.4">
+
+                    <ImageView
+                        android:id="@+id/profile_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img" />
+                </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputFileNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <EditText
                         android:id="@+id/F_Number"
@@ -117,25 +137,6 @@
                     android:layout_below="@+id/searchBar"
                     android:background="@color/divider" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/details"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/textbox"
-                        android:gravity="top|start"
-                        android:hint="Details"
-                        android:inputType="textMultiLine"
-                        android:lines="3"
-                        android:maxLines="10"
-                        android:scrollbars="vertical"
-                        android:textSize="17sp" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <!--            <com.google.android.material.textfield.TextInputLayout-->
                 <!--                android:id="@+id/textInputEmail"-->
@@ -167,6 +168,7 @@
                         android:inputType="text"
                         android:textSize="17sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputDob"
                     android:layout_width="match_parent"
@@ -198,6 +200,27 @@
                             android:src="@drawable/baseline_calendar_month_24" />
                     </LinearLayout>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/textbox"
+                        android:gravity="top|start"
+                        android:hint="Details"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:textSize="17sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLocation"
                     android:layout_width="match_parent"
@@ -242,6 +265,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="18dp"
+                    android:layout_marginBottom="30dp"
                     android:backgroundTint="#5B279700"
                     android:padding="6dp"
                     android:text="Register"

@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         loader.loaderShow();
                         FirebaseAuth.getInstance().signOut();
                         if(emailId!=null || emailId !=""){
-                            Boolean checkDeleteData = DB.deleteUserData(emailId);
+                            Boolean checkDeleteData = DB.deleteUserData(Uemail.getText().toString());
                             if (checkDeleteData == true)
                             {
                                 Intent intentLogin = new Intent(MainActivity.this,login.class);

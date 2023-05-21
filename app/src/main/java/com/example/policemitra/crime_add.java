@@ -1,5 +1,7 @@
 package com.example.policemitra;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -24,7 +27,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -33,7 +40,7 @@ public class crime_add extends AppCompatActivity {
 
     ImageView back;
     ImageButton setdate;
-    EditText fNumber, name, details, aadhar, location, ps,dob;
+    EditText fNumber, name, details, aadhar, location, ps, dob;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button reg;
     FirebaseAuth mAuth;
@@ -41,9 +48,14 @@ public class crime_add extends AppCompatActivity {
     TextInputLayout textInputLayoutDob, textInputLayoutFileNumber, textInputLayoutDetails, textInputLayoutLocation, textInputLayoutPS, textInputLayoutAadhar, textInputLayoutName, textInputLayoutGender;
     int counter = 0;
     RadioGroup genderGroup;
-    String sel_date,gender;
+    FirebaseStorage storage;
+    FirebaseDatabase database;
+    String sel_date, gender;
     int date, year, month, hour, minute;
     int d, y, mon, h, m;
+    ImageView profile_img;
+    Uri uri;
+    private ActivityResultLauncher<String> imagePickerLauncher;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -59,6 +71,8 @@ public class crime_add extends AppCompatActivity {
         reg = findViewById(R.id.Registration);
         setdate = findViewById(R.id.calendar);
         dob = findViewById(R.id.dob);
+        storage = FirebaseStorage.getInstance();
+        database = FirebaseDatabase.getInstance();
         textInputLayoutFileNumber = findViewById(R.id.textInputFileNumber);
         textInputLayoutName = findViewById(R.id.textInputName);
         textInputLayoutDetails = findViewById(R.id.textInputDetails);
@@ -76,10 +90,29 @@ public class crime_add extends AppCompatActivity {
         date = calendar.get(Calendar.DATE);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+        profile_img=findViewById(R.id.profile_img);
         setdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setDate(view);
+            }
+        });
+        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                result -> {
+                    if (result != null) {
+                        loader.loaderShow();
+                        uri = result;
+                        profile_img.setImageURI(uri);
+
+                        loader.loaderHide();
+
+                    }
+                });
+        profile_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Set up the image picker launcher
+                launchImagePicker();
             }
         });
         genderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -171,35 +204,50 @@ public class crime_add extends AppCompatActivity {
                     crimeDetails.put("Aadhar", aadhar.getText().toString());
                     crimeDetails.put("Location", location.getText().toString());
                     crimeDetails.put("Police Station", ps.getText().toString());
-
-                    //                crimeDetails.put("Dob", uDetails.get(5));
-                    //                crimeDetails.put("Password", uDetails.get(6));
-                    // Add a new document with a generated ID
-                    db.collection("criminalRecords")
-                            .document(fNumber.getText().toString())
-                            .set(crimeDetails)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    final StorageReference reference = storage.getReference()
+                            .child(fNumber.getText().toString());
+                    reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    loader.loaderHide();
-                                    Toast.makeText(crime_add.this, "Registered",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intentLogin = new Intent(crime_add.this, crime_registration.class);
-                                    startActivity(intentLogin);
+                                public void onSuccess(Uri uri) {
+                                    database.getReference().child(fNumber.getText().toString()).setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            db.collection("criminalRecords")
+                                                    .document(fNumber.getText().toString())
+                                                    .set(crimeDetails)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            loader.loaderHide();
+                                                            Toast.makeText(crime_add.this, "Registered",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                            Intent intentLogin = new Intent(crime_add.this, crime_registration.class);
+                                                            startActivity(intentLogin);
 
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    loader.loaderHide();
-                                    Toast.makeText(crime_add.this, "Registration failed, try again.",
-                                            Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            loader.loaderHide();
+                                                            Toast.makeText(crime_add.this, "Registration failed, try again.",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                            loader.loaderHide();
+                                        }
+                                    });
                                 }
                             });
+                        }
+                    });
                 }
             }
         });
+
         back.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -217,6 +265,7 @@ public class crime_add extends AppCompatActivity {
             }
         });
     }
+
     public void setDate(View view) {
         new DatePickerDialog(crime_add.this, (datePicker, year, month, date) -> {
             d = date;
@@ -226,8 +275,13 @@ public class crime_add extends AppCompatActivity {
             dob.setText(sel_date);
         }, year, month, date).show();
     }
+
     public void showError(TextInputLayout tag, String message) {
         tag.setError(message);
+    }
+
+    private void launchImagePicker() {
+        imagePickerLauncher.launch("image/*");
     }
 
 }
