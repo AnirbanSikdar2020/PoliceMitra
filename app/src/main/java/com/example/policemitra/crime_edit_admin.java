@@ -134,7 +134,7 @@ public class crime_edit_admin extends AppCompatActivity {
         else {
             profile_img.setImageResource(R.drawable.img);
         }
-
+        loader.loaderShow();
         docRef = db.collection("criminalRecords")
                 .document(file);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
