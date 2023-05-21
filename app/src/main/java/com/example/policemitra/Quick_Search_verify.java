@@ -170,6 +170,7 @@ public class Quick_Search_verify extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Quick_Search_verify.this, "No details available please submit details for verification", Toast.LENGTH_SHORT).show();
 
                     }
                 });
