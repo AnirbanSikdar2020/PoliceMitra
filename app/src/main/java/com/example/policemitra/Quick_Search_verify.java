@@ -63,6 +63,7 @@ public class Quick_Search_verify extends AppCompatActivity {
     CustomAdapterCriminalView adapter;
     String fileNum;
     EditText aadhar;
+    verify_dialog verify = new verify_dialog(Quick_Search_verify.this);
     loader loader = new loader(Quick_Search_verify.this);
     private static final int REQUEST_CAMERA_CODE = 100;
 
@@ -191,6 +192,8 @@ public class Quick_Search_verify extends AppCompatActivity {
                         {
                             loader.loaderHide();
                             Toast.makeText(Quick_Search_verify.this, "No details available please submit details for verification", Toast.LENGTH_SHORT).show();
+                            verify.verifyDialogShow();
+
                         }
 
 
