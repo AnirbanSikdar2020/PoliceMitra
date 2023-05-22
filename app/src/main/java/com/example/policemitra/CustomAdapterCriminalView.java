@@ -20,6 +20,8 @@ public class CustomAdapterCriminalView extends RecyclerView.Adapter<ViewCriminal
     Quick_Search_verify activityList;
     List<ViewCriminalModel> modelList;
 
+    Criminal_View_dialog criminal_view_dialog;
+
 
     public CustomAdapterCriminalView(Quick_Search_verify activityList, List<ViewCriminalModel> modelList) {
         this.activityList = activityList;
@@ -54,7 +56,9 @@ public class CustomAdapterCriminalView extends RecyclerView.Adapter<ViewCriminal
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activityList, "test", Toast.LENGTH_SHORT).show();
+                criminal_view_dialog = new Criminal_View_dialog(activityList);
+//                Toast.makeText(activityList, "test"+fileNo, Toast.LENGTH_SHORT).show();
+                criminal_view_dialog.CriminalViewDialogShow(fileNo);
 //                Intent intent = new Intent(activityList, crime_edit_admin.class);
 //                intent.putExtra("fileNo", (modelList.get(position).getFileNo().toString()));
 //                activityList.startActivity(intent);

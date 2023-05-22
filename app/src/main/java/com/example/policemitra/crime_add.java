@@ -239,7 +239,7 @@ public class crime_add extends AppCompatActivity {
                     crimeDetails.put("Aadhar", aadhar.getText().toString());
                     crimeDetails.put("Location", location.getText().toString());
                     crimeDetails.put("Status", status.getText().toString());
-                    crimeDetails.put("Dob", dob.getText().toString());
+                    crimeDetails.put("Doc", dob.getText().toString());
                     crimeDetails.put("Gender", gender);
                     crimeDetails.put("Police Station", ps.getText().toString());
 

@@ -23,6 +23,7 @@ import android.provider.MediaStore;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -51,8 +52,8 @@ import java.util.List;
 
 public class Quick_Search_verify extends AppCompatActivity {
 
-    ImageView back,pic;
-    ImageButton actionButton;
+    ImageView back;
+    ImageButton actionButton,aadharSearch;
     Bitmap bitmap;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Query query;
@@ -61,6 +62,7 @@ public class Quick_Search_verify extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     CustomAdapterCriminalView adapter;
     String fileNum;
+    EditText aadhar;
     loader loader = new loader(Quick_Search_verify.this);
     private static final int REQUEST_CAMERA_CODE = 100;
 
@@ -75,6 +77,8 @@ public class Quick_Search_verify extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         back = findViewById(R.id.back);
+        aadharSearch = findViewById(R.id.aadharSearch);
+        aadhar = findViewById(R.id.aadhar);
         actionButton = findViewById(R.id.fab);
         back.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -100,7 +104,22 @@ public class Quick_Search_verify extends AppCompatActivity {
                 CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(Quick_Search_verify.this);
             }
         });
+        aadharSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getAadhar = aadhar.getText().toString().trim();
+                if(getAadhar.length()==12)
+                {
+                    search(getAadhar);
+                }
+                else
+                {
+                    Toast.makeText(Quick_Search_verify.this, "Please select Aadhar Number only", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -147,6 +166,7 @@ public class Quick_Search_verify extends AppCompatActivity {
 
     private void search(String aadhar) {
         loader.loaderShow();
+        modelList.clear();
         query = db.collection("criminalRecords")
                 .whereEqualTo("Aadhar", aadhar);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -160,7 +180,7 @@ public class Quick_Search_verify extends AppCompatActivity {
                                         doc.getString("File Number"),
                                         doc.getString("Name"),
                                         doc.getString("Details"));
-                                modelList.clear();
+//
                                 modelList.add(model);
                             }
                             adapter = new CustomAdapterCriminalView(Quick_Search_verify.this, modelList);

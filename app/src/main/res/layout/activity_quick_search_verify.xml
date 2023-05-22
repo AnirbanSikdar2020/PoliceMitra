@@ -28,10 +28,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Verify by Aadhar Number"
+                    android:hint="Search by Aadhar Number"
                     android:background="@drawable/searchbox"
                     android:paddingEnd="42dp"
                     android:singleLine="true"
+                    android:inputType="number"
                     android:textSize="17sp" />
 
                 <ImageButton
