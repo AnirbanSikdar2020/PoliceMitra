@@ -31,7 +31,13 @@
         android:theme="@style/Theme.PoliceMitra"
         tools:targetApi="31">
         <activity
+            android:name=".approve_verification_admin"
+            android:exported="false" />
+        <activity
             android:name=".crime_edit_admin"
+            android:exported="false" />
+        <activity
+            android:name=".admin_verification"
             android:exported="false" />
         <activity
             android:name=".Quick_Search_verify"

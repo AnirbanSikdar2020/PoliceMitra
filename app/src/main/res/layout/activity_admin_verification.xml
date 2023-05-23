@@ -5,29 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".crime_registration">
+    android:background="@color/base_background"
+    tools:context=".admin_verification">
 
     <include
         android:id="@+id/appbar"
         layout="@layout/admin_appbar_page" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/crimeView"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_crime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/purple_700"
-        app:maxImageSize="50dp"
-        android:background="@drawable/circle"
-        android:src="@drawable/baseline_add_circle_outline_24"/>
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/add_crime"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:backgroundTint="@color/purple_700"-->
+<!--        app:maxImageSize="50dp"-->
+<!--        android:background="@drawable/circle"-->
+<!--        android:src="@drawable/baseline_add_circle_outline_24"/>-->
 </RelativeLayout>

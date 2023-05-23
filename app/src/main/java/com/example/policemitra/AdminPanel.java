@@ -79,6 +79,7 @@ public class AdminPanel extends AppCompatActivity {
                 {
                     case MotionEvent.ACTION_DOWN:
                         comp.setBackgroundColor(Color.parseColor("#FFDBA7"));
+
                         break;
                     case MotionEvent.ACTION_UP:
                         comp.setBackgroundColor(Color.WHITE);
@@ -94,6 +95,8 @@ public class AdminPanel extends AppCompatActivity {
                 {
                     case MotionEvent.ACTION_DOWN:
                         ver.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                        Intent intentLogin = new Intent(AdminPanel.this,admin_verification.class);
+                        startActivity(intentLogin);
                         break;
                     case MotionEvent.ACTION_UP:
                         ver.setBackgroundColor(Color.WHITE);
