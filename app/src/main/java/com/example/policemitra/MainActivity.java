@@ -62,6 +62,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
+    General_dialog_modal general = new General_dialog_modal(MainActivity.this);
     loader loader = new loader(MainActivity.this);
     verify_dialog verify = new verify_dialog(MainActivity.this);
     Toolbar toolbar;
@@ -209,13 +210,18 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.complaints:
                         loader.loaderShow();
                         currentPage="complaints";
-                        loadFragment(new complaint());
-//                        Intent intent = new Intent(MainActivity.this,Complaints.class);
-//                        startActivity(intent);
+//                        loadFragment(new complaint());
+                        Intent intent = new Intent(MainActivity.this,Complaints.class);
+                        startActivity(intent);
                         loader.loaderHide();
                         break;
                     case R.id.gen:
-                        loadFragment(new editprofile());
+                        loader.loaderShow();
+                        currentPage="general";
+                        general.generalDialogShow();
+//                        loadFragment(new Verification());
+//                        Log.i();
+                        loader.loaderHide();
                         break;
                 }
 

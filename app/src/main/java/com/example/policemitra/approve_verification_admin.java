@@ -78,7 +78,7 @@ public class approve_verification_admin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_verification_admin);
         intent = getIntent();
-        file = intent.getStringExtra("aadhar");
+        file = intent.getStringExtra("id");
 //        Toast.makeText(this, file, Toast.LENGTH_SHORT).show();
         fNumber = findViewById(R.id.F_Number);
         name = findViewById(R.id.name);
@@ -321,10 +321,24 @@ public class approve_verification_admin extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     loader.loaderHide();
-                                    Toast.makeText(approve_verification_admin.this, "Updated",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(approve_verification_admin.this, crime_registration.class);
-                                    startActivity(intent);
+                                    db.collection("verifications").document(file)
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(approve_verification_admin.this, "Updated",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(approve_verification_admin.this, crime_registration.class);
+                                                    startActivity(intent);
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+
+                                                }
+                                            });
+
 
                                 }
                             })

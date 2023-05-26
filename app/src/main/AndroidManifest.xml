@@ -31,6 +31,9 @@
         android:theme="@style/Theme.PoliceMitra"
         tools:targetApi="31">
         <activity
+            android:name=".Permission_submit"
+            android:exported="false" />
+        <activity
             android:name=".approve_verification_admin"
             android:exported="false" />
         <activity

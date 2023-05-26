@@ -130,11 +130,12 @@ public class crime_edit_admin extends AppCompatActivity {
 
                 }
             });
+//            loader.loaderHide();
         }
         else {
             profile_img.setImageResource(R.drawable.img);
         }
-        loader.loaderShow();
+//        loader.loaderShow();
         docRef = db.collection("criminalRecords")
                 .document(file);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -172,6 +173,7 @@ public class crime_edit_admin extends AppCompatActivity {
                 }
             }
         });
+//        loader.loaderHide();
         setdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

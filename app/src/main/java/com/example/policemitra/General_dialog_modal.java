@@ -1,6 +1,8 @@
+
+
 package com.example.policemitra;
 
-import static androidx.core.content.ContextCompat.getSystemService;
+        import static androidx.core.content.ContextCompat.getSystemService;
         import static com.example.policemitra.SendMail.EMAIL;
         import static com.example.policemitra.SendMail.PASSWORD;
 
@@ -46,28 +48,38 @@ import static androidx.core.content.ContextCompat.getSystemService;
         import javax.mail.internet.MimeMessage;
 
 
-public class verify_dialog {
+public class General_dialog_modal {
     loader loader;
     Activity activity;
     private AlertDialog dialog;
-    Button quickVerify,submitVerify;
+    Button permissions,gd,fir;
 
-    verify_dialog(Activity myactivity) {
+    General_dialog_modal(Activity myactivity) {
         activity = myactivity;
     }
 
-    void verifyDialogShow() {
+    void generalDialogShow() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.verification_dialog, null));
+        builder.setView(inflater.inflate(R.layout.general_modal, null));
         builder.setCancelable(true);
         dialog = builder.create();
         dialog.show();
         loader = new loader(activity);
-        quickVerify = dialog.findViewById(R.id.quickVerifyBtn);
-        submitVerify = dialog.findViewById(R.id.verifyAadharSubmit);
+        permissions = dialog.findViewById(R.id.permissions);
+        gd = dialog.findViewById(R.id.gd);
+        fir = dialog.findViewById(R.id.FIR);
 
-        submitVerify.setOnClickListener(new View.OnClickListener() {
+        permissions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.loaderShow();
+                Intent intentLogin = new Intent(activity, Permission_submit.class);
+                activity.startActivity(intentLogin);
+            }
+        });
+
+        gd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loader.loaderShow();
@@ -76,13 +88,15 @@ public class verify_dialog {
             }
         });
 
-        quickVerify.setOnClickListener(new View.OnClickListener() {
+        fir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentLogin = new Intent(activity, Quick_Search_verify.class);
+                loader.loaderShow();
+                Intent intentLogin = new Intent(activity, Verification_submit.class);
                 activity.startActivity(intentLogin);
             }
         });
     }
 }
+
 

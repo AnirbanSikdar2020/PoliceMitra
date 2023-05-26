@@ -27,7 +27,7 @@ public class home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        int sliderArray[] = {R.drawable.pic_1,R.drawable.pic_2,R.drawable.pic_3};
+        int sliderArray[] = {R.drawable.pic_1,R.drawable.police_1,R.drawable.police_2,R.drawable.police_4, R.drawable.police_6,R.drawable.police_9,R.drawable.police_10, R.drawable.pic_2,R.drawable.pic_3};
         slider=view.findViewById(R.id.slider);
 
         for(int i=0;i<sliderArray.length;i++)

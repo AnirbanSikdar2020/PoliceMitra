@@ -36,6 +36,7 @@ public class crime_registration extends AppCompatActivity {
     List<Model> modelList = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
+    loader loader;
     CustomAdapter adapter;
     FirebaseFirestore db;
 
@@ -47,6 +48,7 @@ public class crime_registration extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.crimeView);
 //        mRecyclerView.hasFixedSize(true);
         db = FirebaseFirestore.getInstance();
+        loader = new loader(crime_registration.this);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         back = findViewById(R.id.back);
@@ -80,6 +82,7 @@ public class crime_registration extends AppCompatActivity {
     }
 
     private void showData() {
+        loader.loaderShow();
         db.collection("criminalRecords").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -93,7 +96,7 @@ public class crime_registration extends AppCompatActivity {
                         }
                         adapter = new CustomAdapter(crime_registration.this, modelList);
                         mRecyclerView.setAdapter(adapter);
-
+                        loader.loaderHide();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

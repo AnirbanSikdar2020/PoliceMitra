@@ -42,7 +42,7 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
     DocumentReference updateData,docRef;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String user_email;
+    String user_email,aadhar,name;
 
 
     public CustomAdapterVerificationsView(admin_verification activityList, List<ViewVerificationModel> modelList) {
@@ -80,7 +80,7 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activityList, approve_verification_admin.class);
-                intent.putExtra("aadhar", (modelList.get(position).getId().toString()));
+                intent.putExtra("id", (modelList.get(position).getId().toString()));
                 activityList.startActivity(intent);
             }
         });
@@ -97,6 +97,8 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 user_email = document.getString("User Email");
+                                aadhar = document.getString("Aadhar");
+                                name = document.getString("Name");
                             }
                         }
                     }
@@ -110,7 +112,7 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(activityList, "Approved", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(activityList, "Mail sent to user", Toast.LENGTH_SHORT).show();
-                                buttonSendEmail(user_email);
+                                buttonSendEmail(user_email,name,aadhar);
                                 Intent intentLogin = new Intent(activityList, admin_verification.class);
                                 activityList.startActivity(intentLogin);
                             }
@@ -128,7 +130,7 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
         });
     }
 
-    public void buttonSendEmail(String email) {
+    public void buttonSendEmail(String email,String name,String aadhar) {
         try {
 
             String stringSenderEmail = EMAIL;
@@ -154,8 +156,8 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
 
-            mimeMessage.setSubject("Welcome to PoliceMitra");
-            mimeMessage.setText("Hello , \n\nUse this One time password to register with Policemitra. \n\nRegards,\nPoliceMitra Team");
+            mimeMessage.setSubject("Verification Status Update for Aadhar No."+aadhar);
+            mimeMessage.setText("Hello Sir/Madam, \n\nAs per you have requested for verification of \nUser Name : "+name+"\nAadhar Number : "+aadhar+"\nAs per current updated records with us the user is not involved in any criminal activities in past.\n\nRegards,\nPoliceMitra Team");
 
             Thread thread = new Thread(new Runnable() {
                 @Override

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/base_background"
     android:fitsSystemWindows="true"
     tools:context=".Quick_Search_verify">
@@ -55,15 +56,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/divider" />
-    <ImageButton
-        android:id="@+id/fab"
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/camera"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
-        android:scaleType="fitXY"
-        android:elevation="8dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:elevation="8dp"
+        android:backgroundTint="@color/purple_700">
+        <ImageButton
+            android:id="@+id/fab"
+            android:layout_margin="10dp"
+            android:background="@drawable/scanner_24"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            />
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
