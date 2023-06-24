@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="Complaints"
+                    android:text="Permissions"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -92,7 +92,7 @@
                 </TextView>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
-                android:id="@+id/verify"
+                android:id="@+id/gd"
                 android:layout_marginLeft="5dp"
                 android:layout_width="0dp"
                 android:layout_weight="50"
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="Verification"
+                    android:text="General Diary"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
@@ -113,30 +113,5 @@
                 </TextView>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/permissions"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="#5B279700"
-            android:padding="6dp"
-            android:text="Permissions"
-            android:textAllCaps="false"
-            android:textSize="17sp" />
-
-        <Button
-            android:id="@+id/gd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#5B279700"
-            android:padding="6dp"
-            android:text="General Diary"
-            android:textAllCaps="false"
-            android:textSize="17sp" />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
