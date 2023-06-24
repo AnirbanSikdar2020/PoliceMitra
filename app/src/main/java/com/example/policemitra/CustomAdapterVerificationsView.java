@@ -3,7 +3,11 @@ package com.example.policemitra;
 import static com.example.policemitra.SendMail.EMAIL;
 import static com.example.policemitra.SendMail.PASSWORD;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,12 +42,13 @@ import javax.mail.internet.MimeMessage;
 
 public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVerificationHolder> {
     admin_verification activityList;
+    loader loader;
     List<ViewVerificationModel> modelList;
     DeleteAlert deleteAlert;
     DocumentReference updateData,docRef;
-
+    FirebaseStorage database;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String user_email,aadhar,name;
+    String user_email,aadhar,name, fileName, fileExtn;
 
 
     public CustomAdapterVerificationsView(admin_verification activityList, List<ViewVerificationModel> modelList) {
@@ -55,7 +61,7 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
     public ViewVerificationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.verification_module, parent, false);
         ViewVerificationHolder viewHolder = new ViewVerificationHolder(itemView);
-
+        loader=new loader(activityList);
         viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -67,6 +73,7 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
 
     @Override
     public void onBindViewHolder(@NonNull ViewVerificationHolder holder, int position) {
+        database = FirebaseStorage.getInstance();
         holder.fileNo.setText(modelList.get(position).getFileNo());
         holder.rTitletv.setText(modelList.get(position).getTile());
         holder.rDesctv.setText(modelList.get(position).getDescription());
@@ -76,6 +83,31 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
     private void addOpt(String fileNo, ViewVerificationHolder holder, int position) {
         holder.edit.setTag(modelList.get(position).getFileNo());
         holder.approve.setTag(modelList.get(position).getFileNo());
+        holder.download.setTag(modelList.get(position).getId());
+        holder.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.loaderShow();
+                docRef = db.collection("verifications")
+                        .document(modelList.get(position).getId().toString());
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                fileName = document.getString("File Url");
+                                fileExtn = document.getString("File Ext");
+//                                user_email = document.getString("User Email");
+                                aadhar = document.getString("Aadhar");
+                                name = document.getString("Name");
+                            }
+                        }
+                    }
+                });
+                downloadfile(aadhar, name, fileName);
+            }
+        });
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +160,30 @@ public class CustomAdapterVerificationsView extends RecyclerView.Adapter<ViewVer
 
             }
         });
+    }
+
+    private void downloadfile(String aadhar, String name, String fileName) {
+        String url;
+        if (aadhar != null && aadhar != "" && name != null && name != "" && fileName != null && fileName != "") {
+            url = aadhar + "-" + name + "-" + fileName + "-verify";
+            Toast.makeText(activityList, url, Toast.LENGTH_SHORT).show();
+            database.getReference().child(url).getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri fileUri) {
+                            String destinationDirectory = Environment.DIRECTORY_DOWNLOADS;
+                            DownloadManager downloadManager = (DownloadManager) activityList.getSystemService(Context.DOWNLOAD_SERVICE);
+                            DownloadManager.Request request = new DownloadManager.Request(fileUri);
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(destinationDirectory, fileName+"."+fileExtn);
+                            downloadManager.enqueue(request);
+                            loader.loaderHide();
+                        }
+                    });
+        } else {
+            loader.loaderHide();
+            Toast.makeText(activityList, "No file available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void buttonSendEmail(String email,String name,String aadhar) {

@@ -62,7 +62,7 @@ public class Verification_submit extends AppCompatActivity {
     FirebaseStorage storage;
     FirebaseDatabase database;
     DocumentReference updateData;
-    String upldFileName;
+    String upldFileName,upldFileExtn;
     TextInputLayout textInputLayoutLocation, textInputLayoutAadhar, textInputLayoutName, textInputLayoutDob;
     private static final int FILE_SELECT_REQUEST_CODE = 2;
     @SuppressLint("ClickableViewAccessibility")
@@ -203,7 +203,11 @@ public class Verification_submit extends AppCompatActivity {
                                     if(fileUri!=null)
                                     {
                                         upldFileName = fileName.getText().toString();
-                                        upldFileName = upldFileName.replaceAll("[@.]*", "");
+                                        String[] fileExt = upldFileName.split("\\.");
+                                        upldFileName = fileExt[0];
+                                        upldFileExtn = fileExt[1];
+//                                        upldFileName = fileName.getText().toString();
+//                                        upldFileName = upldFileName.replaceAll("[@.]*", "");
                                         String names = aadhar.getText().toString()+"-"+name.getText().toString()+"-"+upldFileName+"-verify";
                                         final StorageReference reference = storage.getReference()
                                                 .child(names);
@@ -218,7 +222,8 @@ public class Verification_submit extends AppCompatActivity {
                                                             public void onSuccess(Void unused) {
                                                                 Map<String, Object> updates = new HashMap<>();
                                                                 updates.put("File Url", upldFileName);
-                                                                updateData = db.collection("verifications").document(String.valueOf(aadhar.getText()).trim());
+                                                                updates.put("File Ext", upldFileExtn);
+                                                                updateData = db.collection("verifications").document(String.valueOf(emailId.trim()+"-"+aadhar.getText()).trim());
                                                                 updateData.update(updates)
                                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                             @Override

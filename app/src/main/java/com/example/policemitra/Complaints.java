@@ -51,7 +51,7 @@ public class Complaints extends AppCompatActivity {
     ImageButton mic;
     ImageView back;
     TextView dob,fileName;
-    EditText aadhar, name, location, details, ps;
+    EditText aadhar, name, subject, location, details, ps;
     int date, year, month, hour, minute;
     int d, y, mon, counter = 0;
     ImageButton setdate;
@@ -61,11 +61,11 @@ public class Complaints extends AppCompatActivity {
     loader loader;
     Uri fileUri;
     FirebaseStorage storage;
-    String upldFileName;
+    String upldFileName,upldFileExtn;
     Intent intent;
     FirebaseDatabase database;
     DocumentReference updateData;
-    TextInputLayout textInputLayoutLocation, textInputLayoutPS, textInputLayoutDetails, textInputLayoutAadhar, textInputLayoutName, textInputLayoutDob;
+    TextInputLayout textInputLayoutLocation,textInputLayoutSubject, textInputLayoutPS, textInputLayoutDetails, textInputLayoutAadhar, textInputLayoutName, textInputLayoutDob;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final int RECOGNIZER_RESULT = 1;
     private static final int FILE_SELECT_REQUEST_CODE = 2;
@@ -78,8 +78,10 @@ public class Complaints extends AppCompatActivity {
         details = findViewById(R.id.details);
         mic = findViewById(R.id.mic);
         setdate = findViewById(R.id.calendar);
+        subject = findViewById(R.id.subject);
         choose_file = findViewById(R.id.uploadButton);
         textInputLayoutName = findViewById(R.id.textInputName);
+        textInputLayoutSubject = findViewById(R.id.textInputSubject);
         textInputLayoutPS = findViewById(R.id.textInputNearestPS);
         textInputLayoutDetails = findViewById(R.id.textInputDetails);
         DB = new DBHelper(this);
@@ -162,7 +164,6 @@ public class Complaints extends AppCompatActivity {
             }
         });
 
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,6 +183,16 @@ public class Complaints extends AppCompatActivity {
                     textInputLayoutName.setError(null);
                     counter--;
                 }
+
+                // Subject
+                if (TextUtils.isEmpty(subject.getText().toString().trim())) {
+                    showError(textInputLayoutSubject, "Subject cannot be blank");
+                    counter++;
+                } else {
+                    textInputLayoutSubject.setError(null);
+                    counter--;
+                }
+
                 // Location
                 if (TextUtils.isEmpty(location.getText().toString().trim())) {
                     showError(textInputLayoutLocation, "Location cannot be blank");
@@ -220,11 +231,12 @@ public class Complaints extends AppCompatActivity {
                     HashMap<String, Object> crimeDetails = new HashMap<>();
                     crimeDetails.put("Name", name.getText().toString());
                     crimeDetails.put("Details", details.getText().toString());
+                    crimeDetails.put("Subject", subject.getText().toString());
                     crimeDetails.put("Aadhar", aadhar.getText().toString());
                     crimeDetails.put("Location", location.getText().toString());
                     crimeDetails.put("User Email", emailId);
                     crimeDetails.put("Doc", dob.getText().toString());
-                    crimeDetails.put("Police Station", "");
+                    crimeDetails.put("Police Station", ps.getText().toString());
                     crimeDetails.put("Status", "Pending verification");
                     crimeDetails.put("File Url", "");
 
@@ -239,7 +251,9 @@ public class Complaints extends AppCompatActivity {
                                     if(fileUri!=null)
                                     {
                                         upldFileName = fileName.getText().toString();
-                                        upldFileName = upldFileName.replaceAll("[@.]*", "");
+                                        String[] fileExt = upldFileName.split("\\.");
+                                        upldFileName = fileExt[0];
+                                        upldFileExtn = fileExt[1];
                                         String names = aadhar.getText().toString()+"-"+name.getText().toString()+"-"+upldFileName+"-complaints";
                                         final StorageReference reference = storage.getReference()
                                                 .child(names);
@@ -255,6 +269,7 @@ public class Complaints extends AppCompatActivity {
                                                             public void onSuccess(Void unused) {
                                                                 Map<String, Object> updates = new HashMap<>();
                                                                 updates.put("File Url", upldFileName);
+                                                                updates.put("File Ext", upldFileExtn);
                                                                 updateData = db.collection("complaints").document(String.valueOf(aadhar.getText()).trim());
                                                                 updateData.update(updates)
                                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -324,7 +339,11 @@ public class Complaints extends AppCompatActivity {
                     fileUri = data.getData();
                     String file_name = getFileNameFromUri(fileUri);
                     if(file_name!=null){
+
+//                        String[] file = file_name.split(".");
                         fileName.setText(file_name);
+//                        Toast.makeText(this, file.length, Toast.LENGTH_SHORT).show();
+
                     }
                 }
             }

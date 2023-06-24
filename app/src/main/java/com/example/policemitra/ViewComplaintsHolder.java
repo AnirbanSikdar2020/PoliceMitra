@@ -1,6 +1,6 @@
 package com.example.policemitra;
 
-import android.view.View;
+        import android.view.View;
         import android.widget.ImageButton;
         import android.widget.LinearLayout;
         import android.widget.TextView;
@@ -8,13 +8,14 @@ import android.view.View;
         import androidx.annotation.NonNull;
         import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewVerificationHolder extends RecyclerView.ViewHolder {
+public class ViewComplaintsHolder extends RecyclerView.ViewHolder {
 
-    TextView fileNo,rTitletv, rDesctv;
+    TextView rTitletv, rDesctv,status;
     View mView;
-    ImageButton edit,approve,download;
+    ImageButton approve,decline,download;
+    LinearLayout layoutDiv;
 
-    public ViewVerificationHolder(@NonNull View itemView) {
+    public ViewComplaintsHolder(@NonNull View itemView) {
         super(itemView);
         mView = itemView;
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -23,12 +24,13 @@ public class ViewVerificationHolder extends RecyclerView.ViewHolder {
                 mClickListener.onItemClick(v, getAdapterPosition());
             }
         });
-        fileNo = itemView.findViewById(R.id.criminalFileNo);
         rTitletv = itemView.findViewById(R.id.rTitletv);
         rDesctv = itemView.findViewById(R.id.rDescriptiontv);
-        edit=itemView.findViewById(R.id.edit);
-        approve=itemView.findViewById(R.id.approve);
-        download=itemView.findViewById(R.id.download);
+        status = itemView.findViewById(R.id.complaintsStatus);
+        approve = itemView.findViewById(R.id.approve);
+        decline = itemView.findViewById(R.id.decline);
+        download = itemView.findViewById(R.id.download);
+        layoutDiv = itemView.findViewById(R.id.ViewComplaint);
     }
 
     private ViewHolder.ClickListener mClickListener;

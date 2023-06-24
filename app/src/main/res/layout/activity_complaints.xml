@@ -92,6 +92,26 @@
                 android:src="@drawable/mic" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputSubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textbox"
+                android:backgroundTint="@color/white">
+
+                <EditText
+                    android:id="@+id/subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textbox"
+                    android:hint="Subject"
+                    android:paddingEnd="90dp"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:textSize="17sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputAadhar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

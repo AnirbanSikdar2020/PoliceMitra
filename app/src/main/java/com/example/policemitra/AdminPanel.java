@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminPanel extends AppCompatActivity {
     Toolbar toolbar;
+    String emailId;
+    DBHelper DB;
     LinearLayout crime,comp,ver,fir,permissions;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,8 +39,15 @@ public class AdminPanel extends AppCompatActivity {
         if (id == R.id.AdminLogout) {
 //            Log.i("MENU_DRAWER_TAG", "Logout");
             FirebaseAuth.getInstance().signOut();
-            Intent intentLogin = new Intent(AdminPanel.this,login.class);
-            startActivity(intentLogin);
+            Log.i("MENU_DRAWER_TAG", emailId);
+            if(emailId!=null || emailId !=""){
+                Boolean checkDeleteData = DB.deleteUserData(emailId);
+                if (checkDeleteData == true)
+                {
+                    Intent intentLogin = new Intent(AdminPanel.this,login.class);
+                    startActivity(intentLogin);
+                }
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -54,7 +64,15 @@ public class AdminPanel extends AppCompatActivity {
         ver = findViewById(R.id.verify);
         fir = findViewById(R.id.fir);
         permissions = findViewById(R.id.permissions);
-
+        DB = new DBHelper(this);
+        Cursor res = DB.getData();
+        if(res.getCount()>0){
+            while (res.moveToNext())
+            {
+                emailId = String.valueOf(res.getString(1));
+//                emailId = emailId.replaceAll("[@.]*", "");
+            }
+        }
         crime.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -79,7 +97,8 @@ public class AdminPanel extends AppCompatActivity {
                 {
                     case MotionEvent.ACTION_DOWN:
                         comp.setBackgroundColor(Color.parseColor("#FFDBA7"));
-
+                        Intent intentLogin = new Intent(AdminPanel.this,admin_complaints.class);
+                        startActivity(intentLogin);
                         break;
                     case MotionEvent.ACTION_UP:
                         comp.setBackgroundColor(Color.WHITE);
@@ -127,6 +146,8 @@ public class AdminPanel extends AppCompatActivity {
                 {
                     case MotionEvent.ACTION_DOWN:
                         permissions.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                        Intent intentLogin = new Intent(AdminPanel.this,admin_permissions.class);
+                        startActivity(intentLogin);
                         break;
                     case MotionEvent.ACTION_UP:
                         permissions.setBackgroundColor(Color.WHITE);
