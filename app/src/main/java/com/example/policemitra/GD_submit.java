@@ -1,50 +1,50 @@
 package com.example.policemitra;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.core.app.ActivityCompat;
+        import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.speech.RecognizerIntent;
-import android.text.TextUtils;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.Manifest;
+        import android.annotation.SuppressLint;
+        import android.app.DatePickerDialog;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.database.Cursor;
+        import android.graphics.Color;
+        import android.net.Uri;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.provider.MediaStore;
+        import android.provider.OpenableColumns;
+        import android.speech.RecognizerIntent;
+        import android.text.TextUtils;
+        import android.view.MotionEvent;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
+        import android.widget.ImageView;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.OnSuccessListener;
+        import com.google.android.material.textfield.TextInputLayout;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.firestore.DocumentReference;
+        import com.google.firebase.firestore.FirebaseFirestore;
+        import com.google.firebase.storage.FirebaseStorage;
+        import com.google.firebase.storage.StorageReference;
+        import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+        import java.util.ArrayList;
+        import java.util.Calendar;
+        import java.util.HashMap;
+        import java.util.Map;
 
-public class Permission_submit extends AppCompatActivity {
+public class GD_submit extends AppCompatActivity {
 
     ImageView back;
     TextView dob, fileName;
@@ -70,7 +70,7 @@ public class Permission_submit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_permission_submit);
+        setContentView(R.layout.activity_gd_submit);
         textInputLayoutName = findViewById(R.id.textInputName);
         textInputLayoutSubject = findViewById(R.id.textInputSubject);
         textInputLayoutDetails = findViewById(R.id.textInputDetails);
@@ -80,7 +80,7 @@ public class Permission_submit extends AppCompatActivity {
         textInputLayoutAadhar = findViewById(R.id.textInputAadhar);
         textInputLayoutDob = findViewById(R.id.textInputDob);
         textInputLayoutLocation = findViewById(R.id.textInputLocation);
-        loader = new loader(Permission_submit.this);
+        loader = new loader(GD_submit.this);
         aadhar = findViewById(R.id.aadhar);
         name = findViewById(R.id.name);
         location = findViewById(R.id.location);
@@ -100,7 +100,7 @@ public class Permission_submit extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         back.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(Permission_submit.this, MainActivity.class);
+                        Intent intentLogin = new Intent(GD_submit.this, MainActivity.class);
                         startActivity(intentLogin);
                         break;
                     case MotionEvent.ACTION_UP:
@@ -203,7 +203,7 @@ public class Permission_submit extends AppCompatActivity {
                 }
                 //DOE
                 if (TextUtils.isEmpty(dob.getText().toString().trim())) {
-                    showError(textInputLayoutDob, "Event date cannot be blank");
+                    showError(textInputLayoutDob, "Complaint date cannot be blank");
                     counter++;
                 } else {
                     textInputLayoutDob.setError(null);
@@ -219,13 +219,14 @@ public class Permission_submit extends AppCompatActivity {
                     crimeDetails.put("Aadhar", aadhar.getText().toString());
                     crimeDetails.put("Location", location.getText().toString());
                     crimeDetails.put("User Email", emailId);
-                    crimeDetails.put("Doe", dob.getText().toString());
+                    crimeDetails.put("Doc", dob.getText().toString());
                     crimeDetails.put("Police Station", ps.getText().toString());
-                    crimeDetails.put("Status", "Pending");
+                    crimeDetails.put("Status", "Pending verification");
                     crimeDetails.put("File Url", "");
+                    crimeDetails.put("GD Number", "");
 
                     //upload data
-                    db.collection("permissions")
+                    db.collection("GD")
                             .document(aadhar.getText().toString().trim())
                             .set(crimeDetails)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -237,7 +238,7 @@ public class Permission_submit extends AppCompatActivity {
                                         String[] fileExt = upldFileName.split("\\.");
                                         upldFileName = fileExt[0];
                                         upldFileExtn = fileExt[1];
-                                        String names = aadhar.getText().toString() + "-" + name.getText().toString() + "-" + upldFileName + "-permission";
+                                        String names = aadhar.getText().toString() + "-" + name.getText().toString() + "-" + upldFileName + "-GD";
                                         final StorageReference reference = storage.getReference()
                                                 .child(names);
 
@@ -253,23 +254,23 @@ public class Permission_submit extends AppCompatActivity {
                                                                 Map<String, Object> updates = new HashMap<>();
                                                                 updates.put("File Url", upldFileName);
                                                                 updates.put("File Ext", upldFileExtn);
-                                                                updateData = db.collection("permissions").document(String.valueOf(aadhar.getText()).trim());
+                                                                updateData = db.collection("GD").document(String.valueOf(aadhar.getText()).trim());
                                                                 updateData.update(updates)
                                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                             @Override
                                                                             public void onSuccess(Void aVoid) {
-                                                                                Toast.makeText(Permission_submit.this, "Please check your mail for update",
+                                                                                Toast.makeText(GD_submit.this, "Please check your mail for update",
                                                                                         Toast.LENGTH_LONG).show();
-                                                                                Toast.makeText(Permission_submit.this, "We will revert back within 48hours",
+                                                                                Toast.makeText(GD_submit.this, "We will revert back within 48hours",
                                                                                         Toast.LENGTH_LONG).show();
-                                                                                Intent intent = new Intent(Permission_submit.this, MainActivity.class);
+                                                                                Intent intent = new Intent(GD_submit.this, MainActivity.class);
                                                                                 startActivity(intent);
                                                                             }
                                                                         })
                                                                         .addOnFailureListener(new OnFailureListener() {
                                                                             @Override
                                                                             public void onFailure(@NonNull Exception e) {
-                                                                                Toast.makeText(Permission_submit.this, "Try again", Toast.LENGTH_SHORT).show();
+                                                                                Toast.makeText(GD_submit.this, "Try again", Toast.LENGTH_SHORT).show();
                                                                             }
                                                                         });
                                                                 loader.loaderHide();
@@ -281,11 +282,11 @@ public class Permission_submit extends AppCompatActivity {
                                         });
                                         loader.loaderHide();
                                     } else {
-                                        Toast.makeText(Permission_submit.this, "Please check your mail for update",
+                                        Toast.makeText(GD_submit.this, "Please check your mail for update",
                                                 Toast.LENGTH_LONG).show();
-                                        Toast.makeText(Permission_submit.this, "We will revert back within 48hours",
+                                        Toast.makeText(GD_submit.this, "We will revert back within 48hours",
                                                 Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(Permission_submit.this, MainActivity.class);
+                                        Intent intent = new Intent(GD_submit.this, MainActivity.class);
                                         startActivity(intent);
                                     }
 
@@ -295,7 +296,7 @@ public class Permission_submit extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     loader.loaderHide();
-                                    Toast.makeText(Permission_submit.this, "Registration failed, try again.",
+                                    Toast.makeText(GD_submit.this, "Registration failed, try again.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -342,9 +343,9 @@ public class Permission_submit extends AppCompatActivity {
     }
 
     public void access() {
-        if (ContextCompat.checkSelfPermission(Permission_submit.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(Permission_submit.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Permission_submit.this, new String[]{
+        if (ContextCompat.checkSelfPermission(GD_submit.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(GD_submit.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(GD_submit.this, new String[]{
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
             }, PackageManager.PERMISSION_GRANTED);
@@ -352,7 +353,7 @@ public class Permission_submit extends AppCompatActivity {
     }
 
     public void setDate(View view) {
-        new DatePickerDialog(Permission_submit.this, (datePicker, year, month, date) -> {
+        new DatePickerDialog(GD_submit.this, (datePicker, year, month, date) -> {
             d = date;
             mon = month;
             y = year;

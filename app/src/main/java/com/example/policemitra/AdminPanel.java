@@ -26,7 +26,7 @@ public class AdminPanel extends AppCompatActivity {
     Toolbar toolbar;
     String emailId;
     DBHelper DB;
-    LinearLayout crime,comp,ver,fir,permissions;
+    LinearLayout crime,comp,ver,GD,permissions;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.admin_appbar, menu);
@@ -62,7 +62,7 @@ public class AdminPanel extends AppCompatActivity {
         crime=findViewById(R.id.crimeReg);
         comp = findViewById(R.id.complaints);
         ver = findViewById(R.id.verify);
-        fir = findViewById(R.id.fir);
+        GD = findViewById(R.id.GD);
         permissions = findViewById(R.id.permissions);
         DB = new DBHelper(this);
         Cursor res = DB.getData();
@@ -73,87 +73,49 @@ public class AdminPanel extends AppCompatActivity {
 //                emailId = emailId.replaceAll("[@.]*", "");
             }
         }
-        crime.setOnTouchListener(new View.OnTouchListener() {
+        crime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        crime.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(AdminPanel.this,crime_registration.class);
-                        startActivity(intentLogin);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        crime.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                crime.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                Intent intentLogin = new Intent(AdminPanel.this,crime_registration.class);
+                startActivity(intentLogin);
+//                crime.setBackgroundColor(Color.WHITE);
             }
         });
-        comp.setOnTouchListener(new View.OnTouchListener() {
+
+        comp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        comp.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(AdminPanel.this,admin_complaints.class);
-                        startActivity(intentLogin);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        comp.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                comp.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                Intent intentLogin = new Intent(AdminPanel.this,admin_complaints.class);
+                startActivity(intentLogin);
             }
         });
-        ver.setOnTouchListener(new View.OnTouchListener() {
+
+        ver.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        ver.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(AdminPanel.this,admin_verification.class);
-                        startActivity(intentLogin);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        ver.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                ver.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                Intent intentLogin = new Intent(AdminPanel.this,admin_verification.class);
+                startActivity(intentLogin);
             }
         });
-        fir.setOnTouchListener(new View.OnTouchListener() {
+
+        GD.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        fir.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        fir.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                GD.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                Intent intentLogin = new Intent(AdminPanel.this,admin_GD.class);
+                startActivity(intentLogin);
             }
         });
-        permissions.setOnTouchListener(new View.OnTouchListener() {
+
+        permissions.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction())
-                {
-                    case MotionEvent.ACTION_DOWN:
-                        permissions.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(AdminPanel.this,admin_permissions.class);
-                        startActivity(intentLogin);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        permissions.setBackgroundColor(Color.WHITE);
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                permissions.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                Intent intentLogin = new Intent(AdminPanel.this,admin_permissions.class);
+                startActivity(intentLogin);
             }
         });
     }

@@ -33,6 +33,18 @@
         android:theme="@style/Theme.PoliceMitra"
         tools:targetApi="31">
         <activity
+            android:name=".GD_alert"
+            android:exported="false" />
+        <activity
+            android:name=".GD_view_dialog"
+            android:exported="false" />
+        <activity
+            android:name=".admin_GD"
+            android:exported="false" />
+        <activity
+            android:name=".GD_submit"
+            android:exported="false" />
+        <activity
             android:name=".admin_permissions"
             android:exported="false" />
         <activity

@@ -39,17 +39,6 @@
             android:text="Request for General Diary"
             android:textAllCaps="false"
             android:textSize="17sp" />
-
-        <Button
-            android:id="@+id/FIR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#5B279700"
-            android:padding="6dp"
-            android:text="Request for online FIR"
-            android:textAllCaps="false"
-            android:textSize="17sp" />
+        
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

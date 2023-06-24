@@ -1,39 +1,38 @@
 package com.example.policemitra;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.recyclerview.widget.LinearLayoutManager;
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import android.annotation.SuppressLint;
-        import android.content.Intent;
-        import android.graphics.Color;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.view.MotionEvent;
-        import android.view.View;
-        import android.widget.ImageView;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.OnFailureListener;
-        import com.google.android.gms.tasks.Task;
-        import com.google.android.material.floatingactionbutton.FloatingActionButton;
-        import com.google.firebase.firestore.DocumentSnapshot;
-        import com.google.firebase.firestore.FirebaseFirestore;
-        import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
-public class admin_permissions extends AppCompatActivity {
+public class admin_GD extends AppCompatActivity {
 
     ImageView back;
-    List<ViewPermissionModel> modelList = new ArrayList<>();
+    List<ViewGDModel> modelList = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    CustomAdapterPermissionView adapter;
+    CustomAdapterGDView adapter;
     FirebaseFirestore db;
-
     loader loader;
 
 
@@ -46,7 +45,7 @@ public class admin_permissions extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.complaintsView);
 //        mRecyclerView.hasFixedSize(true);
         db = FirebaseFirestore.getInstance();
-        loader = new loader(admin_permissions.this);
+        loader = new loader(admin_GD.this);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         back = findViewById(R.id.back);
@@ -60,7 +59,7 @@ public class admin_permissions extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         back.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(admin_permissions.this, AdminPanel.class);
+                        Intent intentLogin = new Intent(admin_GD.this, AdminPanel.class);
                         startActivity(intentLogin);
                         break;
                     case MotionEvent.ACTION_UP:
@@ -72,12 +71,12 @@ public class admin_permissions extends AppCompatActivity {
         });
     }
     private void showData() {
-        db.collection("permissions").get()
+        db.collection("GD").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot doc : task.getResult()) {
-                            ViewPermissionModel model = new ViewPermissionModel(
+                            ViewGDModel model = new ViewGDModel(
                                     doc.getString("Aadhar"),
                                     doc.getString("File Url"),
                                     doc.getString("Subject"),
@@ -86,7 +85,7 @@ public class admin_permissions extends AppCompatActivity {
                             modelList.add(model);
                         }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            adapter = new CustomAdapterPermissionView(admin_permissions.this, modelList);
+                            adapter = new CustomAdapterGDView(admin_GD.this, modelList);
                         }
                         mRecyclerView.setAdapter(adapter);
                         loader.loaderHide();

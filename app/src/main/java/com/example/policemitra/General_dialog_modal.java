@@ -68,7 +68,6 @@ public class General_dialog_modal {
         loader = new loader(activity);
         permissions = dialog.findViewById(R.id.permissions);
         gd = dialog.findViewById(R.id.gd);
-        fir = dialog.findViewById(R.id.FIR);
 
         permissions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,16 +82,7 @@ public class General_dialog_modal {
             @Override
             public void onClick(View v) {
                 loader.loaderShow();
-                Intent intentLogin = new Intent(activity, Verification_submit.class);
-                activity.startActivity(intentLogin);
-            }
-        });
-
-        fir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loader.loaderShow();
-                Intent intentLogin = new Intent(activity, Verification_submit.class);
+                Intent intentLogin = new Intent(activity, GD_submit.class);
                 activity.startActivity(intentLogin);
             }
         });
