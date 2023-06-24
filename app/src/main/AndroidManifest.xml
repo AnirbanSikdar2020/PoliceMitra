@@ -33,7 +33,7 @@
         android:theme="@style/Theme.PoliceMitra"
         tools:targetApi="31">
         <activity
-            android:name=".GD_alert"
+            android:name=".MyComplaints"
             android:exported="false" />
         <activity
             android:name=".GD_view_dialog"
