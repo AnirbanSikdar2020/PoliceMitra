@@ -1,4 +1,5 @@
 package com.example.policemitra;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_item_one) {
 
             Log.i("MENU_DRAWER_TAG", "Sos");
-//            Intent intent = new Intent(MainActivity.this,profile.class);
-//            startActivity(intent);
+            String number = "8789767721";
+           Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + number));
+            startActivity(intent);
 
             return true;
         }
