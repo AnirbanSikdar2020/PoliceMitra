@@ -55,7 +55,7 @@ public class Profile extends Fragment {
     forgot_password forgot;
     TextView email, name;
     DBHelper DB;
-
+    MyComplaintsModal myComplaintsModal;
     ImageView profile_img;
     String emailId;
 
@@ -94,6 +94,7 @@ public class Profile extends Fragment {
         loader.loaderShow();
         DB = new DBHelper(this.getActivity());
         Cursor res = DB.getData();
+        myComplaintsModal = new MyComplaintsModal(this.getActivity());
         if (res.getCount() > 0) {
             while (res.moveToNext()) {
                 name.setText(String.valueOf(res.getString(0)));
@@ -183,12 +184,7 @@ public class Profile extends Fragment {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         myComplaints.setBackgroundColor(Color.parseColor("#FFDBA7"));
-//                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                        transaction.setReorderingAllowed(true);
-//
-//                        transaction.replace(R.id.container, editprofile.class, null);
-//                        transaction.commit();
+                        myComplaintsModal.MyComplaintsDialogShow();
                         break;
                     case MotionEvent.ACTION_UP:
                         myComplaints.setBackgroundColor(Color.WHITE);
