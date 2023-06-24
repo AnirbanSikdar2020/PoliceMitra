@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "939117918128",
+    "project_id": "policemitra-bf2b0",
+    "storage_bucket": "policemitra-bf2b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939117918128:android:b82f3663bc02df040b0875",
+        "android_client_info": {
+          "package_name": "com.example.policemitra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939117918128-43kkgvlc9e9f641pm61hj426md9jen89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.policemitra",
+            "certificate_hash": "a3de7aa1c05d072428ccad2238e03507b1c2bb0a"
+          }
+        },
+        {
+          "client_id": "939117918128-rkl2offl4ip96m0na99sa3iddkoi3sge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh6nMGidvNEszegLxU4NNhwfc9zBRzPJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939117918128-rkl2offl4ip96m0na99sa3iddkoi3sge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
