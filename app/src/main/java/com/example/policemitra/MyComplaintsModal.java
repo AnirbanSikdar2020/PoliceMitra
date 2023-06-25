@@ -59,6 +59,14 @@ public class MyComplaintsModal {
                 activity.startActivity(intentLogin);
             }
         });
+        gd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.loaderShow();
+                Intent intentLogin = new Intent(activity, MyGD.class);
+                activity.startActivity(intentLogin);
+            }
+        });
     }
 }
 
