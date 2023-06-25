@@ -1,27 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_200"
     tools:context=".home">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ViewFlipper
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/slider"
-            />
-        <TextView
-            android:id="@+id/hello_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_lalbaba_blank_fragment"
-            android:textSize="50dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ViewFlipper
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_200"
+                    android:text="Indian Constitution"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#A38E8D8D" />
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+                    >
+                    <ImageView
+                        android:id="@+id/constitution"
+                        android:layout_weight="30"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/constitution"/>
+                    <TextView
+                        android:layout_weight="70"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
+                        android:layout_marginLeft="5dp"
+                        android:text="The Indian Constitution is the supreme law of India. It was adopted by the Constituent Assembly of India on 26th November 1949 and came into effect on 26th January 1950, marking the birth of the Republic of India. The Constitution of India is one of the lengthiest written constitutions in the world, consisting of a preamble and 470 articles, grouped into 25 parts, along with eight schedules and five appendices."/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_200"
+                    android:text="Police Notifications"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#A38E8D8D" />
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+                    >
+                    <ImageView
+                        android:id="@+id/kpnotify"
+                        android:layout_weight="30"
+                        android:layout_width="0dp"
+                        android:layout_height="110dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/kp"/>
+                    <TextView
+                        android:layout_weight="70"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
+                        android:layout_marginLeft="5dp"
+                        android:text="Kolkata Police is the law enforcement agency responsible for maintaining law and order in the city of Kolkata, India. It operates under the jurisdiction of the West Bengal Police and is one of the oldest police forces in the country, with a history dating back to the early 18th century."/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+                    >
+                    <ImageView
+                        android:id="@+id/wbpnotify"
+                        android:layout_weight="30"
+                        android:layout_width="0dp"
+                        android:layout_height="110dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/wbp"/>
+                    <TextView
+                        android:layout_weight="70"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:justificationMode="inter_word"
+                        android:layout_marginLeft="5dp"
+                        android:text="The West Bengal Police is the primary law enforcement agency in the state of West Bengal, India. It is responsible for maintaining law and order, preventing and detecting crimes, and ensuring the safety and security of the citizens."/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
