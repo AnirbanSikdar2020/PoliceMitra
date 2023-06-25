@@ -1,40 +1,40 @@
 package com.example.policemitra;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+        import android.annotation.SuppressLint;
+        import android.content.Intent;
+        import android.database.Cursor;
+        import android.graphics.Color;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.view.MotionEvent;
+        import android.view.View;
+        import android.widget.ImageView;
+        import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.android.material.floatingactionbutton.FloatingActionButton;
+        import com.google.firebase.firestore.DocumentSnapshot;
+        import com.google.firebase.firestore.FirebaseFirestore;
+        import com.google.firebase.firestore.Query;
+        import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-public class MyComplaints extends AppCompatActivity {
+public class MyVerifications extends AppCompatActivity {
 
     ImageView back;
-    List<ViewMyComplaintsModel> modelList = new ArrayList<>();
+    List<ViewMyVerificationsModel> modelList = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    CustomAdapterMyComplaintsView adapter;
+    CustomAdapterMyVerificationsView adapter;
     FirebaseFirestore db;
     Query query;
     loader loader;
@@ -48,7 +48,7 @@ public class MyComplaints extends AppCompatActivity {
         setContentView(R.layout.activity_my_complaints);
         mRecyclerView = findViewById(R.id.complaintsView);
         db = FirebaseFirestore.getInstance();
-        loader = new loader(MyComplaints.this);
+        loader = new loader(MyVerifications.this);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         back = findViewById(R.id.back);
@@ -73,7 +73,7 @@ public class MyComplaints extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         back.setBackgroundColor(Color.parseColor("#FFDBA7"));
-                        Intent intentLogin = new Intent(MyComplaints.this, MainActivity.class);
+                        Intent intentLogin = new Intent(MyVerifications.this, MainActivity.class);
                         startActivity(intentLogin);
                         break;
                     case MotionEvent.ACTION_UP:
@@ -86,22 +86,23 @@ public class MyComplaints extends AppCompatActivity {
     }
 
     private void showData() {
-        query = db.collection("complaints")
+        query = db.collection("verifications")
                 .whereEqualTo("User Email",email);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot doc : task.getResult()) {
-                            ViewMyComplaintsModel model = new ViewMyComplaintsModel(
+                            ViewMyVerificationsModel model = new ViewMyVerificationsModel(
                                     doc.getString("Aadhar"),
                                     doc.getString("File Url"),
-                                    doc.getString("Subject"),
+                                    doc.getString("Details"),
                                     doc.getString("Name"),
+                                    doc.getString("User Email"),
                                     doc.getString("Status"));
                             modelList.add(model);
                         }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            adapter = new CustomAdapterMyComplaintsView(MyComplaints.this, modelList);
+                            adapter = new CustomAdapterMyVerificationsView(MyVerifications.this, modelList);
                         }
                         mRecyclerView.setAdapter(adapter);
                         loader.loaderHide();

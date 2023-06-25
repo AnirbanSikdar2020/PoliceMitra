@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/base_background"
+        android:fitsSystemWindows="true"
+        tools:context=".IPC_help">
+
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/admin_appbar_page" />
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:id="@+id/searchBar"
+            android:layout_below="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logindiv"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/IPC"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search"
+                android:background="@drawable/searchbox"
+                android:paddingEnd="42dp"
+                android:singleLine="true"
+                android:inputType="text"
+                android:textSize="17sp" />
+
+            <ImageButton
+                android:id="@+id/IPCSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="-42dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/baseline_search_24" />
+        </LinearLayout>
+        <View
+            android:id="@+id/divider"
+            android:layout_below="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/teal_200" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/viewCriminal"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/divider" />
+    </RelativeLayout>

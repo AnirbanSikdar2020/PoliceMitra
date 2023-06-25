@@ -43,6 +43,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class approve_verification_admin extends AppCompatActivity {
 
@@ -68,8 +69,8 @@ public class approve_verification_admin extends AppCompatActivity {
     ImageView profile_img;
     Uri uri;
     private ActivityResultLauncher<String> imagePickerLauncher;
-    DocumentReference docRef;
-    String genderFirebase;
+    DocumentReference docRef,updateData;
+    String genderFirebase,email;
     RadioButton male, female, others;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -152,6 +153,7 @@ public class approve_verification_admin extends AppCompatActivity {
                         ps.setText(document.getString("Police Station"));
                         location.setText(document.getString("Location"));
                         dob.setText(document.getString("Dob"));
+                        email = document.getString("User Email");
                         String[] dates = document.getString("Dob").split("/");
                         date = Integer.valueOf(dates[0]);
                         month = Integer.valueOf(dates[1]) - 1;
@@ -310,7 +312,7 @@ public class approve_verification_admin extends AppCompatActivity {
                     crimeDetails.put("Aadhar", aadhar.getText().toString());
                     crimeDetails.put("Location", location.getText().toString());
                     crimeDetails.put("Status", status.getText().toString());
-                    crimeDetails.put("Dob", dob.getText().toString());
+                    crimeDetails.put("Doc", dob.getText().toString());
                     crimeDetails.put("Gender", gender);
                     crimeDetails.put("Police Station", ps.getText().toString());
 
@@ -321,8 +323,18 @@ public class approve_verification_admin extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     loader.loaderHide();
-                                    db.collection("verifications").document(file)
-                                            .delete()
+
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put("Aadhar", aadhar.getText().toString());
+                                    updates.put("Details", details.getText().toString());
+                                    updates.put("Dob", dob.getText().toString());
+                                    updates.put("Location", location.getText().toString());
+                                    updates.put("Name", name.getText().toString());
+                                    updates.put("File Number", fNumber.getText().toString());
+                                    updates.put("Status", status.getText().toString());
+                                    updates.put("Police Station", ps.getText().toString());
+                                    updateData = db.collection("verifications").document(email+"-"+aadhar.getText().toString());
+                                    updateData.update(updates)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
@@ -330,15 +342,31 @@ public class approve_verification_admin extends AppCompatActivity {
                                                             Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent(approve_verification_admin.this, crime_registration.class);
                                                     startActivity(intent);
+                                                    loader.loaderHide();
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
-
+                                                    loader.loaderHide();
+                                                    Toast.makeText(approve_verification_admin.this, "Data not updated", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-
+//                                    db.collection("verifications").document(file)
+//                                            .delete()
+//                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                @Override
+//                                                public void onSuccess(Void aVoid) {
+//
+//                                                }
+//                                            })
+//                                            .addOnFailureListener(new OnFailureListener() {
+//                                                @Override
+//                                                public void onFailure(@NonNull Exception e) {
+//
+//                                                }
+//                                            });
+//
 
                                 }
                             })

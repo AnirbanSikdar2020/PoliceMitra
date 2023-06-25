@@ -6,7 +6,6 @@
     android:background="@color/purple_200"
     android:padding="50dp">
 
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"

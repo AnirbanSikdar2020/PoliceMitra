@@ -152,10 +152,6 @@ public class Quick_Search_verify extends AppCompatActivity {
                 stringBuilder.append(textBlock.getValue());
                 stringBuilder.append("\n");
             }
-//            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
-//            textView_data.setText(stringBuilder.toString());
-//            button_capture.setText("Retake");
-//            button_copy.setVisibility(View.VISIBLE);
             if (stringBuilder.toString().trim().length() == 12) {
                 search(stringBuilder.toString().trim());
             } else {

@@ -64,11 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_item_one) {
 
-            Log.i("MENU_DRAWER_TAG", "Sos");
-            String number = "8789767721";
-           Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + number));
-            startActivity(intent);
+//            Log.i("MENU_DRAWER_TAG", "Sos");
+            Intent intentLogin = new Intent(this,SOS.class);
+            this.startActivity(intentLogin);
+//
 
             return true;
         }
@@ -183,6 +182,14 @@ public class MainActivity extends AppCompatActivity {
 //                        loadFragment(new complaint());
                         Intent intent = new Intent(MainActivity.this,Complaints.class);
                         startActivity(intent);
+                        loader.loaderHide();
+                        break;
+                    case R.id.help:
+                        loader.loaderShow();
+                        currentPage="help";
+//                        loadFragment(new complaint());
+                        Intent intentHelp = new Intent(MainActivity.this,IPC_help.class);
+                        startActivity(intentHelp);
                         loader.loaderHide();
                         break;
                     case R.id.gen:

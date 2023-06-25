@@ -23,9 +23,9 @@
             android:icon="@drawable/baseline_insert_drive_file_24"
             android:title="General" />
         <item
-            android:id="@+id/feedback"
-            android:icon="@drawable/baseline_feedback_24"
-            android:title="Feedback" />
+            android:id="@+id/help"
+            android:icon="@drawable/baseline_help_outline_24"
+            android:title="IPC Helpline" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/baseline_logout_24"

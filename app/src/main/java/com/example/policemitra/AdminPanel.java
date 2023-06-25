@@ -26,7 +26,9 @@ public class AdminPanel extends AppCompatActivity {
     Toolbar toolbar;
     String emailId;
     DBHelper DB;
-    LinearLayout crime,comp,ver,GD,permissions;
+    LinearLayout crime,comp,ver,GD,permissions,SOS,IPC;
+    SOS_Register sos_register;
+    IPC_Register ipc_register;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.admin_appbar, menu);
@@ -59,10 +61,14 @@ public class AdminPanel extends AppCompatActivity {
         setContentView(R.layout.activity_admin_panel);
         toolbar = findViewById(R.id.navbar);
         setSupportActionBar(toolbar);
+        sos_register = new SOS_Register(this);
+        ipc_register = new IPC_Register(this);
         crime=findViewById(R.id.crimeReg);
         comp = findViewById(R.id.complaints);
         ver = findViewById(R.id.verify);
         GD = findViewById(R.id.GD);
+        SOS = findViewById(R.id.SOS);
+        IPC = findViewById(R.id.IPC);
         permissions = findViewById(R.id.permissions);
         DB = new DBHelper(this);
         Cursor res = DB.getData();
@@ -116,6 +122,22 @@ public class AdminPanel extends AppCompatActivity {
                 permissions.setBackgroundColor(Color.parseColor("#FFDBA7"));
                 Intent intentLogin = new Intent(AdminPanel.this,admin_permissions.class);
                 startActivity(intentLogin);
+            }
+        });
+
+        SOS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SOS.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                sos_register.SOS_RegisterShow();
+            }
+        });
+
+        IPC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IPC.setBackgroundColor(Color.parseColor("#FFDBA7"));
+                ipc_register.IPC_RegisterShow();
             }
         });
     }

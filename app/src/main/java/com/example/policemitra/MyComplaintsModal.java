@@ -6,12 +6,14 @@ import android.app.Activity;
         import android.view.View;
         import android.widget.Button;
         import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 
 public class MyComplaintsModal {
     loader loader;
     Activity activity;
     private AlertDialog dialog;
-//    Button permissions,gd,fir;
+    CardView comp,permissions,gd,verify;
+//    Button fir;
 
     MyComplaintsModal(Activity myactivity) {
         activity = myactivity;
@@ -25,26 +27,38 @@ public class MyComplaintsModal {
         dialog = builder.create();
         dialog.show();
         loader = new loader(activity);
-//        permissions = dialog.findViewById(R.id.permissions);
-//        gd = dialog.findViewById(R.id.gd);
+        comp = dialog.findViewById(R.id.complaints);
+        permissions = dialog.findViewById(R.id.permissions);
+        gd = dialog.findViewById(R.id.gd);
+        verify = dialog.findViewById(R.id.verify);
 
-//        permissions.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loader.loaderShow();
-//                Intent intentLogin = new Intent(activity, Permission_submit.class);
-//                activity.startActivity(intentLogin);
-//            }
-//        });
+        comp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.loaderShow();
+                Intent intentLogin = new Intent(activity, MyComplaints.class);
+                activity.startActivity(intentLogin);
+            }
+        });
 
-//        gd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loader.loaderShow();
-//                Intent intentLogin = new Intent(activity, GD_submit.class);
-//                activity.startActivity(intentLogin);
-//            }
-//        });
+        permissions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.loaderShow();
+                Intent intentLogin = new Intent(activity, MyPermission.class);
+                activity.startActivity(intentLogin);
+            }
+        });
+
+
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loader.loaderShow();
+                Intent intentLogin = new Intent(activity, MyVerifications.class);
+                activity.startActivity(intentLogin);
+            }
+        });
     }
 }
 
