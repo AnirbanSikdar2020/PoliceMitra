@@ -184,6 +184,13 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         loader.loaderHide();
                         break;
+                    case R.id.map:
+                        loader.loaderShow();
+                        currentPage="map";
+                        loadFragment(new Map());
+                        
+                        loader.loaderHide();
+                        break;
                     case R.id.help:
                         loader.loaderShow();
                         currentPage="help";

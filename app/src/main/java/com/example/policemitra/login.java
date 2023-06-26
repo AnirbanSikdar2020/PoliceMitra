@@ -40,6 +40,7 @@ public class login extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference docRef;
     DBHelper DB;
+    Intent intent;
     TextInputLayout textInputLayoutEmail, textInputLayoutPassword;
 
     @Override
@@ -89,12 +90,8 @@ public class login extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-//                                            Toast.makeText(login.this, "test", Toast.LENGTH_SHORT).show();
                                             Cursor res = DB.getData();
-//                                            Toast.makeText(login.this,String.valueOf(res.getCount()), Toast.LENGTH_SHORT).show();
                                             if (res.getCount() > 0) {
-                                                Intent intent;
-                                                FirebaseUser user = mAuth.getCurrentUser();
                                                 Toast.makeText(login.this, "Welcome to PoliceMitra", Toast.LENGTH_SHORT).show();
                                                 if (Uemail != null && Uemail.equals("policemitra2023@gmail.com")) {
                                                     intent = new Intent(login.this, AdminPanel.class);
@@ -112,9 +109,7 @@ public class login extends AppCompatActivity {
                                                         if (task.isSuccessful()) {
                                                             DocumentSnapshot document = task.getResult();
                                                             if (document.exists()) {
-                                                                Intent intent;
                                                                 DB.insertUserData(document.getString("Name"), document.getString("Email"));
-                                                                FirebaseUser user = mAuth.getCurrentUser();
                                                                 Toast.makeText(login.this, "Welcome to PoliceMitra", Toast.LENGTH_SHORT).show();
                                                                 if (Uemail != null && Uemail.equals("policemitra2023@gmail.com")) {
                                                                     intent = new Intent(login.this, AdminPanel.class);
@@ -128,9 +123,6 @@ public class login extends AppCompatActivity {
                                                     }
 
                                                 });
-
-                                                // Sign in success, update UI with the signed-in user's information
-
                                             }
                                         } else {
                                             Toast.makeText(login.this, "Please check your email or password", Toast.LENGTH_SHORT).show();
