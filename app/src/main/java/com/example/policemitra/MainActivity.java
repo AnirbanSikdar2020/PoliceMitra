@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                         loader.loaderShow();
                         currentPage="map";
                         loadFragment(new Map());
-                        
+
                         loader.loaderHide();
                         break;
                     case R.id.help:
